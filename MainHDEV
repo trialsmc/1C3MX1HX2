@@ -545,13 +545,13 @@ AvatarTab:Button({
 
 AvatarTab:Section({Title = "Advanced Character Editor", Icon = "tag"})
 
-_G.selectedParts = {
+bodyParts = {
     Torso = nil,
-    BracoDireito = nil,
-    BracoEsquerdo = nil,
-    PernaDireita = nil,
-    PernaEsquerda = nil,
-    Cabeca = nil
+    RightArm = nil,
+    LeftArm = nil,
+    RightLeg = nil,
+    LeftLeg = nil,
+    Head = nil
 }
 
 AvatarTab:Input({
@@ -559,12 +559,12 @@ AvatarTab:Input({
     Desc = "Enter Torso ID",
     Callback = function(Value)
         if Value == "" then
-            _G.selectedParts.Torso = nil
-            print("Tronco: vazio")
+            bodyParts.Torso = nil
+            print("Torso: vazio")
         else
             local id = tonumber(Value) or 0
-            _G.selectedParts.Torso = id
-            print("Tronco: " .. id)
+            bodyParts.Torso = id
+            print("Torso: " .. id)
         end
     end
 })
@@ -574,12 +574,12 @@ AvatarTab:Input({
     Desc = "Enter Right Arm ID",
     Callback = function(Value)
         if Value == "" then
-            _G.selectedParts.BracoDireito = nil
-            print("Braço Direito: vazio")
+            bodyParts.RightArm = nil
+            print("Right Arm: vazio")
         else
             local id = tonumber(Value) or 0
-            _G.selectedParts.BracoDireito = id
-            print("Braço Direito: " .. id)
+            bodyParts.RightArm = id
+            print("Right Arm: " .. id)
         end
     end
 })
@@ -589,12 +589,12 @@ AvatarTab:Input({
     Desc = "Enter Left Arm ID",
     Callback = function(Value)
         if Value == "" then
-            _G.selectedParts.BracoEsquerdo = nil
-            print("Braço Esquerdo: vazio")
+            bodyParts.LeftArm = nil
+            print("Left Arm: vazio")
         else
             local id = tonumber(Value) or 0
-            _G.selectedParts.BracoEsquerdo = id
-            print("Braço Esquerdo: " .. id)
+            bodyParts.LeftArm = id
+            print("Left Arm: " .. id)
         end
     end
 })
@@ -604,12 +604,12 @@ AvatarTab:Input({
     Desc = "Enter Right Leg ID",
     Callback = function(Value)
         if Value == "" then
-            _G.selectedParts.PernaDireita = nil
-            print("Perna Direita: vazio")
+            bodyParts.RightLeg = nil
+            print("Right Leg: vazio")
         else
             local id = tonumber(Value) or 0
-            _G.selectedParts.PernaDireita = id
-            print("Perna Direita: " .. id)
+            bodyParts.RightLeg = id
+            print("Right Leg: " .. id)
         end
     end
 })
@@ -619,12 +619,12 @@ AvatarTab:Input({
     Desc = "Enter Left Leg ID",
     Callback = function(Value)
         if Value == "" then
-            _G.selectedParts.PernaEsquerda = nil
-            print("Perna Esquerda: vazio")
+            bodyParts.LeftLeg = nil
+            print("Left Leg: vazio")
         else
             local id = tonumber(Value) or 0
-            _G.selectedParts.PernaEsquerda = id
-            print("Perna Esquerda: " .. id)
+            bodyParts.LeftLeg = id
+            print("Left Leg: " .. id)
         end
     end
 })
@@ -634,12 +634,12 @@ AvatarTab:Input({
     Desc = "Enter Head ID",
     Callback = function(Value)
         if Value == "" then
-            _G.selectedParts.Cabeca = nil
-            print("Cabeça: vazio")
+            bodyParts.Head = nil
+            print("Head: vazio")
         else
             local id = tonumber(Value) or 0
-            _G.selectedParts.Cabeca = id
-            print("Cabeça: " .. id)
+            bodyParts.Head = id
+            print("Head: " .. id)
         end
     end
 })
@@ -647,16 +647,16 @@ AvatarTab:Input({
 AvatarTab:Section({Title = "Load Parts", Icon = "tag"})
 
 -- Variável para armazenar a parte selecionada no dropdown
-_G.parteSelecionada = "Tronco"
+bodyPartSelected = "Torso"
 
 
 AvatarTab:Dropdown({
     Title = "Selecionar Parte",
     Desc = "Escolha qual parte equipar",
-    Values = {"Tronco", "Braço Direito", "Braço Esquerdo", "Perna Direita", "Perna Esquerda", "Cabeça"},
-	Value = "Tronco",
+    Values = {"Torso", "Right Arm", "Left Arm", "Right Leg", "Left Leg", "Head"},
+	Value = "Torso",
     Callback = function(Value)
-        _G.parteSelecionada = Value
+        bodyPartSelected = Value
         print("Parte selecionada: " .. Value)
     end
 })
@@ -677,32 +677,32 @@ AvatarTab:Button({
         }
         
         -- Define qual parte carregar baseado na seleção do dropdown
-        if _G.parteSelecionada == "Tronco" and _G.selectedParts.Torso then
-            args[1][1] = _G.selectedParts.Torso
-            print("Equipando Tronco: " .. _G.selectedParts.Torso)
-        elseif _G.parteSelecionada == "Braço Direito" and _G.selectedParts.BracoDireito then
-            args[1][2] = _G.selectedParts.BracoDireito
-            print("Equipando Braço Direito: " .. _G.selectedParts.BracoDireito)
-        elseif _G.parteSelecionada == "Braço Esquerdo" and _G.selectedParts.BracoEsquerdo then
-            args[1][3] = _G.selectedParts.BracoEsquerdo
-            print("Equipando Braço Esquerdo: " .. _G.selectedParts.BracoEsquerdo)
-        elseif _G.parteSelecionada == "Perna Direita" and _G.selectedParts.PernaDireita then
-            args[1][4] = _G.selectedParts.PernaDireita
-            print("Equipando Perna Direita: " .. _G.selectedParts.PernaDireita)
-        elseif _G.parteSelecionada == "Perna Esquerda" and _G.selectedParts.PernaEsquerda then
-            args[1][5] = _G.selectedParts.PernaEsquerda
-            print("Equipando Perna Esquerda: " .. _G.selectedParts.PernaEsquerda)
-        elseif _G.parteSelecionada == "Cabeça" and _G.selectedParts.Cabeca then
-            args[1][6] = _G.selectedParts.Cabeca
-            print("Equipando Cabeça: " .. _G.selectedParts.Cabeca)
+        if bodyPartSelected == "Torso" and bodyParts.Torso then
+            args[1][1] = bodyParts.Torso
+            print("Equipando Torso: " .. bodyParts.Torso)
+        elseif bodyPartSelected == "Right Arm" and bodyParts.RightArm then
+            args[1][2] = bodyParts.RightArm
+            print("Equipando Right Arm: " .. bodyParts.RightArm)
+        elseif bodyPartSelected == "Left Arm" and bodyParts.LeftArm then
+            args[1][3] = bodyParts.LeftArm
+            print("Equipando Left Arm: " .. bodyParts.LeftArm)
+        elseif bodyPartSelected == "Right Leg" and bodyParts.RightLeg then
+            args[1][4] = bodyParts.RightLeg
+            print("Equipando Right Leg: " .. bodyParts.RightLeg)
+        elseif bodyPartSelected == "Left Leg" and bodyParts.LeftLeg then
+            args[1][5] = bodyParts.LeftLeg
+            print("Equipando Left Leg: " .. bodyParts.LeftLeg)
+        elseif bodyPartSelected == "Head" and bodyParts.Head then
+            args[1][6] = bodyParts.Head
+            print("Equipando Head: " .. bodyParts.Head)
         else
-            print("Erro: " .. _G.parteSelecionada .. " está vazia! Digite um ID primeiro.")
+            print("Erro: " .. bodyPartSelected .. " está vazia! Digite um ID primeiro.")
             return
         end
         
         -- Executa o remote
         pcall(function()
-            game:GetService("ReplicatedStorage").Remotes.ChangeCharacterBody:InvokeServer(unpack(args))
+            ChangeCharacterBody:InvokeServer(unpack(args))
         end)
     end
 })
@@ -712,36 +712,36 @@ AvatarTab:Button({
     Desc = "Equipa todas as partes digitadas de uma vez",
     Callback = function()
         -- Verifica se pelo menos uma parte tem ID
-        local temAlgumaParteSelecionada = _G.selectedParts.Torso or _G.selectedParts.BracoDireito or 
-                                         _G.selectedParts.BracoEsquerdo or _G.selectedParts.PernaDireita or 
-                                         _G.selectedParts.PernaEsquerda or _G.selectedParts.Cabeca
+        local noBodyPartSelected = bodyParts.Torso or bodyParts.RightArm or 
+                                         bodyParts.LeftArm or bodyParts.RightLeg or 
+                                         bodyParts.LeftLeg or bodyParts.Head
         
-        if not temAlgumaParteSelecionada then
-            print("Erro: Nenhuma parte foi selecionada! Digite pelo menos um ID.")
+        if not noBodyPartSelected then
+            print("ERROR: No part was selected, Enter the ID of a body part.")
             return
         end
         
         local args = {
             [1] = {
-                [1] = _G.selectedParts.Torso or 0,
-                [2] = _G.selectedParts.BracoDireito or 0,
-                [3] = _G.selectedParts.BracoEsquerdo or 0,
-                [4] = _G.selectedParts.PernaDireita or 0,
-                [5] = _G.selectedParts.PernaEsquerda or 0,
-                [6] = _G.selectedParts.Cabeca or 0
+                [1] = bodyParts.Torso or 0,
+                [2] = bodyParts.RightArm or 0,
+                [3] = bodyParts.LeftArm or 0,
+                [4] = bodyParts.RightLeg or 0,
+                [5] = bodyParts.LeftLeg or 0,
+                [6] = bodyParts.Head or 0
             }
         }
         
         print("Carregando partes selecionadas:")
-        if _G.selectedParts.Torso then print("Tronco: " .. _G.selectedParts.Torso) end
-        if _G.selectedParts.BracoDireito then print("Braço Direito: " .. _G.selectedParts.BracoDireito) end
-        if _G.selectedParts.BracoEsquerdo then print("Braço Esquerdo: " .. _G.selectedParts.BracoEsquerdo) end
-        if _G.selectedParts.PernaDireita then print("Perna Direita: " .. _G.selectedParts.PernaDireita) end
-        if _G.selectedParts.PernaEsquerda then print("Perna Esquerda: " .. _G.selectedParts.PernaEsquerda) end
-        if _G.selectedParts.Cabeca then print("Cabeça: " .. _G.selectedParts.Cabeca) end
+        if bodyParts.Torso then print("Torso: " .. bodyParts.Torso) end
+        if bodyParts.RightArm then print("Right Arm: " .. bodyParts.RightArm) end
+        if bodyParts.LeftArm then print("Left Arm: " .. bodyParts.LeftArm) end
+        if bodyParts.RightLeg then print("Right Leg: " .. bodyParts.RightLeg) end
+        if bodyParts.LeftLeg then print("Left Leg: " .. bodyParts.LeftLeg) end
+        if bodyParts.Head then print("Head: " .. bodyParts.Head) end
         
         pcall(function()
-            game:GetService("ReplicatedStorage").Remotes.ChangeCharacterBody:InvokeServer(unpack(args))
+            ChangeCharacterBody:InvokeServer(unpack(args))
         end)
     end
 })
@@ -4630,4 +4630,5 @@ EventTab:Button({
 		end
 	end
 })
+
 
