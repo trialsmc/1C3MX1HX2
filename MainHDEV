@@ -92,7 +92,7 @@ local AdminTab = Window:Tab({
 })
 local EventTab = Window:Tab({
     Title = "Event",
-    Icon = "sparkles",
+    Icon = "box",
     Locked = false,
 })
 local ServerTab = Window:Tab({
@@ -4224,7 +4224,7 @@ AdminTab:Button({
 -- EVENT
 -- ==============================
 
-EventTab:Section({Title = "Halloween 2025 Auto Farm BY: BRUTON HUB", Icon = "sparkles"})
+EventTab:Section({Title = "Halloween 2025 Auto Farm BY: BRUTON HUB", Icon = "box"})
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -4632,3 +4632,8 @@ EventTab:Button({
 	end
 })
 
+-- ==============================
+-- SERVER
+-- ==============================
+
+ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
