@@ -4112,7 +4112,7 @@ AdminTab:Button({
 -- EVENT
 -- ==============================
 
-EventTab:Section({Title = "Halloween 2025 Auto Farm", Icon = "sparkles"})
+EventTab:Section({Title = "Halloween 2025 Auto Farm BY: BRUTON HUB", Icon = "sparkles"})
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -4133,7 +4133,7 @@ pcall(function()
 end)
 
 EventTab:Button({
-    Title = "baby",
+    Title = "BABY MODE",
     Callback = function()
         Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
         Humanoid = Character:WaitForChild("Humanoid")
@@ -4211,7 +4211,7 @@ pcall(function()
 end)
 
 EventTab:Button({
-    Title = "easy",
+    Title = "EASY MODE",
     Callback = function()
         Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
         Humanoid = Character:WaitForChild("Humanoid")
@@ -4289,7 +4289,7 @@ pcall(function()
 end)
 
 EventTab:Button({
-    Title = "Intermediate level",
+    Title = "MEDIUM MODE",
     Callback = function()
         Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
         Humanoid = Character:WaitForChild("Humanoid")
@@ -4367,7 +4367,7 @@ pcall(function()
 end)
 
 EventTab:Button({
-    Title = "hard",
+    Title = "HARD MODE",
     Callback = function()
         Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
         Humanoid = Character:WaitForChild("Humanoid")
@@ -4445,7 +4445,7 @@ pcall(function()
 end)
 
 EventTab:Button({
-    Title = "Extreme",
+    Title = "EXTREME MODE",
     Callback = function()
         Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
         Humanoid = Character:WaitForChild("Humanoid")
@@ -4504,8 +4504,10 @@ EventTab:Button({
         workspace.Gravity = originalGravity
     end
 })
+
 EventTab:Button({
-	Title = "Jump recovery",
+	Title = "Recovery",
+    Desc = "If you have problems, use this option",
 	Callback = function()
 		Humanoid.WalkSpeed = 16
 		Humanoid.JumpPower = 50
@@ -4517,3 +4519,4 @@ EventTab:Button({
 		end
 	end
 })
+
