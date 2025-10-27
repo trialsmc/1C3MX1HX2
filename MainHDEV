@@ -650,7 +650,7 @@ AvatarTab:Section({Title = "Load Parts", Icon = "tag"})
 _G.parteSelecionada = "Tronco"
 
 
-MusicTab:Dropdown({
+AvatarTab:Dropdown({
     Title = "Selecionar Parte",
     Desc = "Escolha qual parte equipar",
     Values = {"Tronco", "Braço Direito", "Braço Esquerdo", "Perna Direita", "Perna Esquerda", "Cabeça"},
@@ -4630,3 +4630,4 @@ EventTab:Button({
 		end
 	end
 })
+
