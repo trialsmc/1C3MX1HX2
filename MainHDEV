@@ -95,6 +95,11 @@ local EventTab = Window:Tab({
     Icon = "sparkles",
     Locked = false,
 })
+local ServerTab = Window:Tab({
+    Title = "Server",
+    Icon = "boxes",
+    Locked = false,
+})
 -- ==============================
 -- INFO
 -- ==============================
@@ -4626,3 +4631,4 @@ EventTab:Button({
 		end
 	end
 })
+
