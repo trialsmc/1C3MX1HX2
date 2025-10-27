@@ -560,7 +560,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.Torso = nil
-            print("Torso: vazio")
+            print("Torso: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.Torso = id
@@ -575,7 +575,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.RightArm = nil
-            print("Right Arm: vazio")
+            print("Right Arm: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.RightArm = id
@@ -590,7 +590,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.LeftArm = nil
-            print("Left Arm: vazio")
+            print("Left Arm: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.LeftArm = id
@@ -605,7 +605,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.RightLeg = nil
-            print("Right Leg: vazio")
+            print("Right Leg: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.RightLeg = id
@@ -620,7 +620,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.LeftLeg = nil
-            print("Left Leg: vazio")
+            print("Left Leg: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.LeftLeg = id
@@ -635,7 +635,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.Head = nil
-            print("Head: vazio")
+            print("Head: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.Head = id
@@ -646,24 +646,22 @@ AvatarTab:Input({
 
 AvatarTab:Section({Title = "Load Parts", Icon = "tag"})
 
--- Variável para armazenar a parte selecionada no dropdown
-bodyPartSelected = "Torso"
-
+bodyPartSelected = "Head"
 
 AvatarTab:Dropdown({
-    Title = "Selecionar Parte",
-    Desc = "Escolha qual parte equipar",
+    Title = "Select Body Part",
+    Desc = "Choose a part you want to equip",
     Values = {"Torso", "Right Arm", "Left Arm", "Right Leg", "Left Leg", "Head"},
-	Value = "Torso",
+	Value = "Head",
     Callback = function(Value)
         bodyPartSelected = Value
-        print("Parte selecionada: " .. Value)
+        print("Selected Part: " .. Value)
     end
 })
 
 AvatarTab:Button({
-    Title = "Equipar Parte Selecionada",
-    Desc = "Equipa apenas a parte escolhida no dropdown",
+    Title = "Equip Selected Body Part",
+    Desc = "Equip the selected part",
     Callback = function()
         local args = {
             [1] = {
@@ -679,24 +677,24 @@ AvatarTab:Button({
         -- Define qual parte carregar baseado na seleção do dropdown
         if bodyPartSelected == "Torso" and bodyParts.Torso then
             args[1][1] = bodyParts.Torso
-            print("Equipando Torso: " .. bodyParts.Torso)
+            print("Equip Torso: " .. bodyParts.Torso)
         elseif bodyPartSelected == "Right Arm" and bodyParts.RightArm then
             args[1][2] = bodyParts.RightArm
-            print("Equipando Right Arm: " .. bodyParts.RightArm)
+            print("Equip Right Arm: " .. bodyParts.RightArm)
         elseif bodyPartSelected == "Left Arm" and bodyParts.LeftArm then
             args[1][3] = bodyParts.LeftArm
-            print("Equipando Left Arm: " .. bodyParts.LeftArm)
+            print("Equip Left Arm: " .. bodyParts.LeftArm)
         elseif bodyPartSelected == "Right Leg" and bodyParts.RightLeg then
             args[1][4] = bodyParts.RightLeg
-            print("Equipando Right Leg: " .. bodyParts.RightLeg)
+            print("Equip Right Leg: " .. bodyParts.RightLeg)
         elseif bodyPartSelected == "Left Leg" and bodyParts.LeftLeg then
             args[1][5] = bodyParts.LeftLeg
-            print("Equipando Left Leg: " .. bodyParts.LeftLeg)
+            print("Equip Left Leg: " .. bodyParts.LeftLeg)
         elseif bodyPartSelected == "Head" and bodyParts.Head then
             args[1][6] = bodyParts.Head
-            print("Equipando Head: " .. bodyParts.Head)
+            print("Equip Head: " .. bodyParts.Head)
         else
-            print("Erro: " .. bodyPartSelected .. " está vazia! Digite um ID primeiro.")
+            print("ERROR: " .. bodyPartSelected .. " Is empty, Enter the ID of a body part")
             return
         end
         
@@ -708,10 +706,10 @@ AvatarTab:Button({
 })
 
 AvatarTab:Button({
-    Title = "cargar todas las partes",
-    Desc = "Equipa todas as partes digitadas de uma vez",
+    Title = "Equip All Parts",
+    Desc = "Equip all selected body parts",
     Callback = function()
-        -- Verifica se pelo menos uma parte tem ID
+        -- Check if a body part is selected
         local noBodyPartSelected = bodyParts.Torso or bodyParts.RightArm or 
                                          bodyParts.LeftArm or bodyParts.RightLeg or 
                                          bodyParts.LeftLeg or bodyParts.Head
@@ -732,7 +730,7 @@ AvatarTab:Button({
             }
         }
         
-        print("Carregando partes selecionadas:")
+        print("Loading all body parts:")
         if bodyParts.Torso then print("Torso: " .. bodyParts.Torso) end
         if bodyParts.RightArm then print("Right Arm: " .. bodyParts.RightArm) end
         if bodyParts.LeftArm then print("Left Arm: " .. bodyParts.LeftArm) end
@@ -4630,5 +4628,6 @@ EventTab:Button({
 		end
 	end
 })
+
 
 
