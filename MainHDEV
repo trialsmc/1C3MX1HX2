@@ -127,8 +127,6 @@ Hexagon offerts what the competition doesn't: variety in options innovative, use
         FontWeight = Enum.FontWeight.Medium,
     })
 
-    InfoTab:Space()
-
     AboutSection:Section({
         Title = [[NEWS 1.1.5 Halloween Update:
 Added: (Unlocked) Vehicle Speed and Turbo, Advanced Character Editor returns, NEW All Halloween Event, more...
@@ -560,7 +558,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.Torso = nil
-            print("Torso: empty")
+            print("⚠️ Torso: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.Torso = id
@@ -575,7 +573,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.RightArm = nil
-            print("Right Arm: empty")
+            print("⚠️ Right Arm: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.RightArm = id
@@ -590,7 +588,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.LeftArm = nil
-            print("Left Arm: empty")
+            print("⚠️ Left Arm: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.LeftArm = id
@@ -605,7 +603,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.RightLeg = nil
-            print("Right Leg: empty")
+            print("⚠️ Right Leg: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.RightLeg = id
@@ -620,7 +618,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.LeftLeg = nil
-            print("Left Leg: empty")
+            print("⚠️ Left Leg: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.LeftLeg = id
@@ -635,7 +633,7 @@ AvatarTab:Input({
     Callback = function(Value)
         if Value == "" then
             bodyParts.Head = nil
-            print("Head: empty")
+            print("⚠️ Head: empty")
         else
             local id = tonumber(Value) or 0
             bodyParts.Head = id
@@ -644,7 +642,7 @@ AvatarTab:Input({
     end
 })
 
-AvatarTab:Section({Title = "Load Parts", Icon = "tag"})
+AvatarTab:Section({Title = "Load Character Parts", Icon = "tag"})
 
 bodyPartSelected = "Head"
 
@@ -660,8 +658,8 @@ AvatarTab:Dropdown({
 })
 
 AvatarTab:Button({
-    Title = "Equip Selected Body Part",
-    Desc = "Equip the selected part",
+    Title = "Equip Selected Part",
+    Desc = "Equip the selected body part",
     Callback = function()
         local args = {
             [1] = {
@@ -674,7 +672,7 @@ AvatarTab:Button({
             }
         }
         
-        -- Define qual parte carregar baseado na seleção do dropdown
+        -- Defines the part that will be loaded
         if bodyPartSelected == "Torso" and bodyParts.Torso then
             args[1][1] = bodyParts.Torso
             print("Equip Torso: " .. bodyParts.Torso)
@@ -694,7 +692,7 @@ AvatarTab:Button({
             args[1][6] = bodyParts.Head
             print("Equip Head: " .. bodyParts.Head)
         else
-            print("ERROR: " .. bodyPartSelected .. " Is empty, Enter the ID of a body part")
+            print("❌ " .. bodyPartSelected .. " Is empty, Enter the ID of a body part")
             return
         end
         
@@ -715,7 +713,7 @@ AvatarTab:Button({
                                          bodyParts.LeftLeg or bodyParts.Head
         
         if not noBodyPartSelected then
-            print("ERROR: No part was selected, Enter the ID of a body part.")
+            print("❌ No part was selected, Enter the ID of a body part.")
             return
         end
         
@@ -730,7 +728,7 @@ AvatarTab:Button({
             }
         }
         
-        print("Loading all body parts:")
+        print("✅ Loading all body parts:")
         if bodyParts.Torso then print("Torso: " .. bodyParts.Torso) end
         if bodyParts.RightArm then print("Right Arm: " .. bodyParts.RightArm) end
         if bodyParts.LeftArm then print("Left Arm: " .. bodyParts.LeftArm) end
@@ -4628,6 +4626,3 @@ EventTab:Button({
 		end
 	end
 })
-
-
-
