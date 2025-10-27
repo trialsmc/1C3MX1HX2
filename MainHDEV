@@ -4637,3 +4637,214 @@ EventTab:Button({
 -- ==============================
 
 ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
+
+ServerTab:Button({
+	Title = "Lag Player Laptop",
+    Desc = "Multiplica laptops ultra rápido e teleporta no alvo sem lag",
+    Callback = function()
+        local Players = game:GetService("Players")
+        local StarterGui = game:GetService("StarterGui")
+        local localPlayer = Players.LocalPlayer
+        local RunService = game:GetService("RunService")
+
+        -- Variáveis globais
+        _G.quantidadeLaptops = _G.quantidadeLaptops or 100
+        _G.targetPlayer = _G.targetPlayer or nil
+        _G.sistemaAtivo = _G.sistemaAtivo or false
+        _G.loopConnection = _G.loopConnection or nil
+
+        -- Função para contar laptops (otimizada)
+        local function contarLaptops()
+            local total = 0
+            -- Verificar backpack
+            local backpackTools = localPlayer.Backpack:GetChildren()
+            for i = 1, #backpackTools do
+                if backpackTools[i]:IsA("Tool") and backpackTools[i].Name == "Laptop" then
+                    total += 1
+                end
+            end
+            -- Verificar character
+            if localPlayer.Character then
+                local charTools = localPlayer.Character:GetChildren()
+                for i = 1, #charTools do
+                    if charTools[i]:IsA("Tool") and charTools[i].Name == "Laptop" then
+                        total += 1
+                    end
+                end
+            end
+            return total
+        end
+
+        -- TextBox Quantidade de Laptops
+		ServerTab:Input({
+    		Title = "Quantidade de Laptops",
+    		Desc = "Digite quantos laptops multiplicar",
+            Callback = function(Value)
+                local num = tonumber(Value)
+                if num and num > 0 then
+                    _G.quantidadeLaptops = num
+                    StarterGui:SetCore("SendNotification", {
+                        Title = "Quantidade",
+                        Text = "Definido: "..num.." laptops",
+                        Duration = 3
+                    })
+                end
+            end
+        })
+
+        -- TextBox Nome do Jogador
+		ServerTab:Input({
+    		Title = "Nome do Jogador",
+    		Desc = "Digite nome do jogador para Lag",
+            Callback = function(Value)
+                if Value ~= "" then
+                    local playersList = Players:GetPlayers()
+                    for i = 1, #playersList do
+                        local player = playersList[i]
+                        if string.find(player.Name:lower(), Value:lower()) or 
+                           string.find(player.DisplayName:lower(), Value:lower()) then
+                            _G.targetPlayer = player
+                            StarterGui:SetCore("SendNotification", {
+                                Title = "Alvo",
+                                Text = "Definido: "..player.Name,
+                                Duration = 3
+                            })
+                            return
+                        end
+                    end
+                    StarterGui:SetCore("SendNotification", {
+                        Title = " Erro",
+                        Text = "Jogador não encontrado!",
+                        Duration = 3
+                    })
+                end
+            end
+        })
+
+		ServerTab:Button({
+			Title = "Limpar Todos os Laptops",
+    		Desc = "Remove todos os laptops do inventário",
+            Callback = function()
+                local laptopsRemovidos = 0
+                
+                -- Limpar backpack
+                local backpackTools = localPlayer.Backpack:GetChildren()
+                for i = 1, #backpackTools do
+                    if backpackTools[i]:IsA("Tool") and backpackTools[i].Name == "Laptop" then
+                        backpackTools[i]:Destroy()
+                        laptopsRemovidos += 1
+                    end
+                end
+                
+                -- Limpar character
+                if localPlayer.Character then
+                    local charTools = localPlayer.Character:GetChildren()
+                    for i = 1, #charTools do
+                        if charTools[i]:IsA("Tool") and charTools[i].Name == "Laptop" then
+                            charTools[i]:Destroy()
+                            laptopsRemovidos += 1
+                        end
+                    end
+                end
+                
+                StarterGui:SetCore("SendNotification", {
+                    Title = "Limpeza",
+                    Text = laptopsRemovidos.." laptops removidos!",
+                    Duration = 3
+                })
+            end
+        })
+
+        -- Toggle Principal
+		ServerTab:Toggle({
+			Title = "Ativar Sistema",
+            Default = false,
+            Callback = function(Value)
+                _G.sistemaAtivo = Value
+                
+                -- Parar loop anterior se existir
+                if _G.loopConnection then
+                    _G.loopConnection:Disconnect()
+                    _G.loopConnection = nil
+                end
+
+                if Value then
+                    if not _G.targetPlayer then
+                        StarterGui:SetCore("SendNotification", {
+                            Title = " Erro",
+                            Text = "Defina um jogador primeiro!",
+                            Duration = 3
+                        })
+                        _G.sistemaAtivo = false
+                        return
+                    end
+
+                    StarterGui:SetCore("SendNotification", {
+                        Title = "iniciado",
+                        Text = "Multiplicando laptops...",
+                        Duration = 3
+                    })
+
+                    local laptop = workspace.WorkspaceCom["001_GiveTools"].Laptop
+                    local clickDetector = laptop:FindFirstChildWhichIsA("ClickDetector")
+                    local faseMultiplicacao = true
+
+                    -- Usar RunService para melhor performance
+                    _G.loopConnection = RunService.Heartbeat:Connect(function()
+                        if not _G.sistemaAtivo then return end
+                        
+                        if faseMultiplicacao then
+                            -- FASE 1: MULTIPLICAR LAPTOPS
+                            local totalLaptops = contarLaptops()
+                            
+                            if totalLaptops >= _G.quantidadeLaptops then
+                                faseMultiplicacao = false
+                                StarterGui:SetCore("SendNotification", {
+                                    Title = "Completo",
+                                    Text = "Multiplicação completa! Iniciando Lag. ..",
+                                    Duration = 3
+                                })
+                                return
+                            end
+
+                            -- Teleportar e clicar
+                            if localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                localPlayer.Character.HumanoidRootPart.CFrame = laptop.CFrame + Vector3.new(0, 2, 0)
+                                
+                                -- Clicar 2000 vezes mais rápido (usando múltiplos spawns)
+                                for i = 1, 2000 do
+                                    task.spawn(function()
+                                        if clickDetector then
+                                            fireclickdetector(clickDetector)
+                                        end
+                                    end)
+                                end
+                            end
+                        else
+                            -- FASE 2: LOOP TP NO JOGADOR
+                            if _G.targetPlayer and _G.targetPlayer.Character and 
+                               _G.targetPlayer.Character:FindFirstChild("HumanoidRootPart") and
+                               localPlayer.Character and localPlayer.Character:FindFirstChild("HumanoidRootPart") then
+                                
+                                local targetPos = _G.targetPlayer.Character.HumanoidRootPart.Position
+                                localPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(
+                                    targetPos.X,
+                                    targetPos.Y + 3,
+                                    targetPos.Z
+                                )
+                                localPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+                            end
+                        end
+                    end)
+
+                else
+                    StarterGui:SetCore("SendNotification", {
+                        Title = "Parado",
+                        Text = "Sistema desativado",
+                        Duration = 3
+                    })
+                end
+            end
+        })
+    end
+})
