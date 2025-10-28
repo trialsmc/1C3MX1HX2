@@ -64,7 +64,7 @@ local steps = 100
 local delayPerStep = totalTime / steps
 
 for i = 1, steps do
-    ProgressBar.Size = UDim2.new(i/steps,0,1,0)
+    ProgressBar.Size = UDim2.new(i/steps, -40, 0, 6)
     PercentText.Text = i .. "%"
     wait(delayPerStep)
 end
@@ -72,5 +72,3 @@ end
 Blur:Destroy()
 
 ScreenGui:Destroy()
-
-
