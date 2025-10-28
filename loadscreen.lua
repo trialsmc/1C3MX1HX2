@@ -1,0 +1,75 @@
+local Blur = Instance.new("BlurEffect", game.Lighting)
+Blur.Size = 20
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "Hexagon"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+
+local Background = Instance.new("Frame")
+Background.Parent = ScreenGui
+Background.Size = UDim2.new(0, 400, 0, 200)
+Background.Position = UDim2.new(0.5, 0, 0.5, 0)
+Background.BackgroundColor3 = Color3.fromRGB(25, 0, 0)
+
+local bgCorner = Instance.new("UICorner")
+bgCorner.Parent = Background
+bgCorner.CornerRadius = UDim.new(0, 12)
+
+local Title = Instance.new("TextLabel")
+Title.Parent = Background
+Title.Size = UDim2.new(1, -40, 0, 60)
+Title.Position = UDim2.new(0, 20, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "HEXAGON HUB"
+Title.TextColor3 = Color3.fromRGB(255,60,60) -- Color
+Title.Font = Enum.Font.GothamBold
+Title.TextScaled = true
+Title.TextSize = 32
+
+local Desc = Instance.new("TextLabel")
+Desc.Parent = Background
+Desc.Size = UDim2.new(1, -40, 0, 80)
+Desc.Position = UDim2.new(0, 20, 0, 105)
+Desc.BackgroundTransparency = 1
+Desc.Text = "DESCRIPTION"
+Desc.TextColor3 = Color3.fromRGB(255,60,60) -- Color
+Desc.Font = Enum.Font.GothamBold
+Desc.TextScaled = true
+Desc.TextSize = 16
+
+local ProgressBar = Instance.new("Frame")
+ProgressBar.Size = UDim2.new(1, -40, 0, 6)
+ProgressBar.Position = UDim2.new(0, 20, 1, -30)
+ProgressBar.BackgroundColor3 = Color3.fromRGB(40, 0, 0)
+ProgressBar.BorderSizePixel = 0
+ProgressBar.Parent = Background
+
+local ProgressCorner = Instance.new("UICorner")
+ProgressCorner.CornerRadius = UDim.new(0.5,0)
+ProgressCorner.Parent = ProgressBar
+
+local PercentText = Instance.new("TextLabel")
+PercentText.Size = UDim2.new(1,0,1,0)
+PercentText.Position = UDim2.new(0,0,0,0)
+PercentText.BackgroundTransparency = 1
+PercentText.TextColor3 = Color3.fromRGB(180,180,180)
+PercentText.Font = Enum.Font.GothamBold
+PercentText.TextScaled = true
+PercentText.Text = "0%"
+PercentText.Parent = BarBackground
+
+-- Loading Animation
+local totalTime = 7 -- Seconds
+local steps = 100
+local delayPerStep = totalTime / steps
+
+for i = 1, steps do
+    ProgressBar.Size = UDim2.new(i/steps,0,1,0)
+    PercentText.Text = i .. "%"
+    wait(delayPerStep)
+end
+-- Delete GUI in the end
+Blur.Destroy()
+ScreenGui:Destroy()
