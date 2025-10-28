@@ -40,7 +40,7 @@ Desc.TextSize = 16
 local ProgressBar = Instance.new("Frame")
 ProgressBar.Parent = Background
 ProgressBar.Position = UDim2.new(0, 20, 1, -30)
-ProgressBar.Size = UDim2.new(1, 0, 0.03, 0)
+ProgressBar.Size = UDim2.new(1, -40, 0, 6)
 ProgressBar.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
 ProgressBar.BorderSizePixel = 0
 
@@ -64,10 +64,11 @@ local steps = 100
 local delayPerStep = totalTime / steps
 
 for i = 1, steps do
-    ProgressBar.Size = UDim2.new(i/steps, 0, 0.03, 0)
+    ProgressBar.Size = UDim2.new(i/steps, -40, 0, 6)
     PercentText.Text = i .. "%"
     wait(delayPerStep)
 end
 -- Delete GUI and BLUR in the end
 ScreenGui:Destroy()
 Blur:Destroy()
+
