@@ -4,6 +4,55 @@ local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid, RootPart = Character:WaitForChild("Humanoid"), Character:WaitForChild("HumanoidRootPart")
 local RE = ReplicatedStorage:WaitForChild("RE")
 
+
+local bb = Instance.new("BillboardGui")
+bb.StudsOffset = Vector3.new(0,5,0)
+bb.Size = UDim2.new(0,100,0,30)
+local textLabel = Instance.new("TextLabel")
+textLabel.BackgroundTransparency = 1
+textLabel.Size = UDim2.new(1,0,1,0)
+textLabel.TextScaled = true
+textLabel.Text = "Owner👑"
+textLabel.Parent = bb
+
+local specificUsername = "Roun95"
+
+local function addOwnerTag(player)
+    player.CharacterAdded:Connect(function(character)
+        local head = character:WaitForChild("Head", 10)
+        if head then
+            local ownerTag = bb:Clone()
+            ownerTag.Adornee = head
+            ownerTag.StudsOffset = Vector3.new(0, 3, 0)
+            ownerTag.Parent = character
+        end
+    end)
+
+    if player.Character then
+        local character = player.Character
+        local head = character:FindFirstChild("Head")
+        if head then
+            local ownerTag = bb:Clone()
+            ownerTag.Adornee = head
+            ownerTag.StudsOffset = Vector3.new(0, 3, 0)
+            ownerTag.Parent = character
+        end
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(player)
+    if player.Name == specificUsername then
+        addOwnerTag(player)
+    end
+end)
+
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player.Name == specificUsername then
+        addOwnerTag(player)
+    end
+end
+
+
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local Window = WindUI:CreateWindow({
     Title = "Hexagon Client 🃏",
@@ -100,32 +149,6 @@ local ServerTab = Window:Tab({
     Icon = "boxes",
     Locked = false,
 })
-
-
-
-
-
-
-
-
-local bb = Instance.new("BillboardGui")
-bb.StudsOffset = Vector3.new(0,5,0)   --Place the Gui a little above the character's head.
-bb.Size = UDim2.new(0,100,0,30)
-local textLabel = Instance.new("TextLabel")
-textLabel.Size = UDim2.new(1,0,1,0)   --same size as it's parent bb.
-textLabel.TextScaled = true
-textLabel.Text = "Owner👑"
-textLabel.Parent = bb
- 
-game.Players.PlayerAdded:Connect(function(player)  
-    player.CharacterAdded:Connect(function(char) 
-        if player.Name == "Roun95" then   --You will want to change this to your Roblox user name.
-            wait(1)  --give a little time in case it's a respawn.
-            local bbCopy = bb:Clone()
-            bbCopy.Parent = char:WaitForChild("Head")
-        end
-    end)
-end)
 -- ==============================
 -- INFO
 -- ==============================
@@ -4663,4 +4686,5 @@ EventTab:Button({
 -- ==============================
 
 ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
+
 
