@@ -70,6 +70,7 @@ for i = 1, steps do
     wait(delayPerStep)
 end
 -- Delete GUI in the end
-Blur.Destroy()
+Blur:Destroy()
 
 ScreenGui:Destroy()
+
