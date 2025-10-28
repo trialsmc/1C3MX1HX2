@@ -8,12 +8,13 @@ local RE = ReplicatedStorage:WaitForChild("RE")
 local bb = Instance.new("BillboardGui")
 bb.StudsOffset = Vector3.new(0,2,0)
 bb.MaxDistance = 60
-bb.Size = UDim2.new(0,100,0,30)
+bb.Size = UDim2.new(0,150,0,30)
 local textLabel = Instance.new("TextLabel")
 textLabel.BackgroundTransparency = 1
 textLabel.Size = UDim2.new(1,0,1,0)
 textLabel.TextScaled = true
-textLabel.Text = "Hexagon Owner"
+textLabel.TextColor3 = Color3.new(220, 220, 220)
+textLabel.Text = "Owner 🃏"
 textLabel.Font = Enum.Font.FredokaOne
 textLabel.Parent = bb
 
@@ -4686,6 +4687,7 @@ EventTab:Button({
 -- ==============================
 
 ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
+
 
 
 
