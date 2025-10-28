@@ -4,6 +4,79 @@ local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid, RootPart = Character:WaitForChild("Humanoid"), Character:WaitForChild("HumanoidRootPart")
 local RE = ReplicatedStorage:WaitForChild("RE")
 
+local Blur = Instance.new("BlurEffect", game.Lighting)
+Blur.Size = 20
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "Hexagon"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+
+local Background = Instance.new("Frame")
+Background.Parent = ScreenGui
+Background.Size = UDim2.new(0, 380, 0, 190)
+Background.Position = UDim2.new(0.28, 0, 0.28, 0)
+Background.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+
+local bgCorner = Instance.new("UICorner")
+bgCorner.Parent = Background
+bgCorner.CornerRadius = UDim.new(0, 12)
+
+local Title = Instance.new("TextLabel")
+Title.Parent = Background
+Title.Size = UDim2.new(1, 0, 1, 0)
+Title.Position = UDim2.new(0, 0, 0, -20)
+Title.BackgroundTransparency = 1
+Title.Text = "HEXAGON"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 32
+
+local Desc = Instance.new("TextLabel")
+Desc.Parent = Background
+Desc.Size = UDim2.new(1, 0, 1, 0)
+Desc.Position = UDim2.new(0, 0, 0, 5)
+Desc.BackgroundTransparency = 1
+Desc.Text = "by Roun95"
+Desc.TextColor3 = Color3.fromRGB(200, 200, 200)
+Desc.Font = Enum.Font.Gotham
+Desc.TextSize = 16
+
+local ProgressBar = Instance.new("Frame")
+ProgressBar.Parent = Background
+ProgressBar.Position = UDim2.new(0, 20, 1, -30)
+ProgressBar.Size = UDim2.new(1, -40, 0, 6)
+ProgressBar.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+ProgressBar.BorderSizePixel = 0
+
+local ProgressCorner = Instance.new("UICorner")
+ProgressCorner.Parent = ProgressBar
+ProgressCorner.CornerRadius = UDim.new(0.5,0)
+
+local PercentText = Instance.new("TextLabel")
+PercentText.Parent = Background
+PercentText.Size = UDim2.new(1, 0, 1, 0)
+PercentText.Position = UDim2.new(0, 0, 0, 50)
+PercentText.BackgroundTransparency = 1
+PercentText.Text = "0%"
+PercentText.TextColor3 = Color3.fromRGB(150, 150, 150)
+PercentText.Font = Enum.Font.Gotham
+PercentText.TextSize = 12
+
+-- Loading Animation
+local totalTime = 9 -- Seconds
+local steps = 100
+local delayPerStep = totalTime / steps
+
+for i = 1, steps do
+    ProgressBar.Size = UDim2.new(i/steps, -40, 0, 6)
+    PercentText.Text = i .. "%"
+    wait(delayPerStep)
+end
+-- Delete GUI and BLUR in the end
+ScreenGui:Destroy()
+Blur:Destroy()
 
 local bb = Instance.new("BillboardGui")
 bb.StudsOffset = Vector3.new(0,3,0)
@@ -52,7 +125,6 @@ for _, player in pairs(game.Players:GetPlayers()) do
         addOwnerTag(player)
     end
 end
-
 
 local WindUI = loadstring(game:HttpGet("https://github.com/Footagesus/WindUI/releases/latest/download/main.lua"))()
 local Window = WindUI:CreateWindow({
@@ -184,11 +256,11 @@ Hexagon offerts what the competition doesn't: variety in options innovative, use
 
     AboutSection:Section({
         Title = [[NEWS 1.1.5 Halloween Update:
-Added: (Unlocked) Vehicle Speed and Turbo, Advanced Character Editor returns, NEW All Halloween Event, more...
+Added: (Unlocked) Vehicle Speed and Turbo, NEW Advanced Character Editor, NEW All Halloween Event, more...
 Credits: Nova & BRUTON HUB
 
 NEWS 1.1.0:
-Added: CANOE SPAWM, BUG PLAYERS, DESTROY SERVER V2, SKYBOX CHARACTER
+Added: Canoe Spam, Bug Players, Destroy Server V2, Skybox Character
 Credits: BRUTON HUB]],
         TextSize = 14,
         TextTransparency = .45,
@@ -2408,10 +2480,10 @@ TrollTab:Toggle({
     end
 })
 
-TrollTab:Section({Title = "Spawm Commands", Icon = "ghost"})
+TrollTab:Section({Title = "Spam Commands", Icon = "ghost"})
 
 TrollTab:Toggle({
-	Title = "Canoe Spawm",
+	Title = "Canoe Spam",
     Desc = "BY: BRUTON HUB",
     Default = false,
    Callback = function(state)
@@ -4688,8 +4760,6 @@ EventTab:Button({
 
 ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
 
+ServerTab:Section({Title = "Server Spam", Icon = "boxes"})
 
-
-
-
-
+ServerTab:Section({Title = "Server Commands", Icon = "boxes"})
