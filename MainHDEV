@@ -377,7 +377,7 @@ ResetValuesTab = PlayerTab:Button({
 local Remotes = ReplicatedStorage.Remotes
 local Wear, ChangeCharacterBody = Remotes.Wear, Remotes.ChangeCharacterBody
 
-AvatarTab:Section({Title = "Copy Avatar", Icon = "tag"})
+AvatarTab:Section({Title = "Copy Character", Icon = "tag"})
 
 local PlayerValue
 local Target = nil
@@ -415,7 +415,7 @@ Players.PlayerAdded:Connect(updatePlayers)
 Players.PlayerRemoving:Connect(updatePlayers)
 
 AvatarTab:Button({
-    Title = "Copy Avatar",
+    Title = "Copy Character",
     Callback = function()
         if not Target then return end
 
@@ -1012,17 +1012,21 @@ end
 MusicTab:Section({Title = "Music All Server", Icon = "music"})
 
 local audios = {
-    {Name = "amongus", ID = 6651571134},
-    {Name = "Sus", ID = 6701126635},
-    {Name = "SUS", ID = 7153419575},
+    {Name = "Among Us", ID = 6651571134},
+    {Name = "SUS", ID = 6701126635},
+    {Name = "Sus", ID = 7153419575},
     {Name = "Sonic.Exe", ID = 2496367477},
     {Name = "Mandrake Detected", ID = 9068077052},
     {Name = "Gemido ultra rápido", ID = 128863565301778},
     {Name = "Hentai wiaaaaan", ID = 88332347208779},
     {Name = "uwu", ID = 76820720070248},
     {Name = "gemido1", ID = 105263704862377},
+    {Name = "gemido2", ID = 84207358477461},
     {Name = "ai meu cuzin", ID = 130714479795369},
     {Name = "ai meu cuzin (slowed)", ID = 71895544093312},
+    {Name = "Nano Sempai", ID = 96052357637052},
+    {Name = "Naooo Hah", ID = 126606012725276},
+    {Name = "Bohahahaha", ID = 95939584395786},
     {Name = "OH MY GOD", ID = 73349649774476},
     {Name = "CHINABOY", ID = 84403553163931}
 }
