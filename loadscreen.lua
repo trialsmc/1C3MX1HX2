@@ -19,28 +19,28 @@ bgCorner.CornerRadius = UDim.new(0, 12)
 
 local Title = Instance.new("TextLabel")
 Title.Parent = Background
-Title.Size = UDim2.new(1, -40, 0, 60)
-Title.Position = UDim2.new(0, 20, 0, 40)
+Title.Size = UDim2.new(1, 0, 1, 0)
+Title.Position = UDim2.new(0, 0, 0, -20)
 Title.BackgroundTransparency = 1
 Title.Text = "HEXAGON"
-Title.TextColor3 = Color3.fromRGB(255,60,60) -- Color
+Title.TextColor3 = Color3.fromRGB(255,60,60)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 32
 
 local Desc = Instance.new("TextLabel")
 Desc.Parent = Background
-Desc.Size = UDim2.new(1, -40, 0, 80)
-Desc.Position = UDim2.new(0, 20, 0, 60)
+Desc.Size = UDim2.new(1, 0, 1, 0)
+Desc.Position = UDim2.new(0, 0, 0, 5)
 Desc.BackgroundTransparency = 1
 Desc.Text = "DESCRIPTION"
-Desc.TextColor3 = Color3.fromRGB(255,180,180) -- Color
+Desc.TextColor3 = Color3.fromRGB(255,180,180)
 Desc.Font = Enum.Font.Gotham
 Desc.TextSize = 16
 
 local ProgressBar = Instance.new("Frame")
 ProgressBar.Parent = Background
 ProgressBar.Position = UDim2.new(0, 20, 1, -30)
-ProgressBar.Size = UDim2.new(1, -40, 0, 6)
+ProgressBar.Size = UDim2.new(1, 0, 0.03, 0)
 ProgressBar.BackgroundColor3 = Color3.fromRGB(255, 50, 50)
 ProgressBar.BorderSizePixel = 0
 
@@ -64,11 +64,10 @@ local steps = 100
 local delayPerStep = totalTime / steps
 
 for i = 1, steps do
-    ProgressBar.Size = UDim2.new(i/steps, -40, 0, 6)
+    ProgressBar.Size = UDim2.new(i/steps, 0, 0.03, 0)
     PercentText.Text = i .. "%"
     wait(delayPerStep)
 end
--- Delete GUI in the end
-Blur:Destroy()
-
+-- Delete GUI and BLUR in the end
 ScreenGui:Destroy()
+Blur:Destroy()
