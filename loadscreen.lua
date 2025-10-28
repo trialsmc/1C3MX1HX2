@@ -10,7 +10,7 @@ ScreenGui.IgnoreGuiInset = true
 local Background = Instance.new("Frame")
 Background.Parent = ScreenGui
 Background.Size = UDim2.new(0, 380, 0, 190)
-Background.Position = UDim2.new(0.25, 0, 0.25, 0)
+Background.Position = UDim2.new(0.28, 0, 0.28, 0)
 Background.BackgroundColor3 = Color3.fromRGB(25, 0, 0)
 
 local bgCorner = Instance.new("UICorner")
@@ -71,4 +71,5 @@ end
 -- Delete GUI and BLUR in the end
 ScreenGui:Destroy()
 Blur:Destroy()
+
 
