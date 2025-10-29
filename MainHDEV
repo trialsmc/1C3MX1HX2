@@ -1028,7 +1028,9 @@ local audios = {
     {Name = "Naooo ah", ID = 126606012725276},
     {Name = "Bohahahaha", ID = 95939584395786},
     {Name = "OH MY GOD", ID = 73349649774476},
-    {Name = "ChinaBoy", ID = 84403553163931}
+    {Name = "ChinaBoy", ID = 84403553163931},
+    {Name = "Mangekyou Sharingan", ID = 1592708450},
+    {Name = "Shinra Tensei", ID = 127171723747143}
 }
 
 local audioNames = {}
@@ -4767,5 +4769,6 @@ ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
 ServerTab:Section({Title = "Server Spam", Icon = "boxes"})
 
 ServerTab:Section({Title = "Server Commands", Icon = "boxes"})
+
 
 
