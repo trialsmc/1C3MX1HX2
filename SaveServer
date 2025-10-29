@@ -1,0 +1,171 @@
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+local player = Players.LocalPlayer
+local gameId = game.PlaceId
+
+local fileName = "servidores.json"
+local serversData = {}
+local savedNickname = "Sem Nome"
+
+local function SaveToFile()
+    local data = HttpService:JSONEncode({servers = serversData, nickname = savedNickname})
+    writefile(fileName, data)
+    print("✅ Dados salvos localmente!")
+end
+
+local function LoadFromFile()
+    if isfile(fileName) then
+        local data = readfile(fileName)
+        local success, loadedData = pcall(function()
+            return HttpService:JSONDecode(data)
+        end)
+        if success and loadedData then
+            serversData = loadedData.servers or {}
+            savedNickname = loadedData.nickname or "Sem Nome"
+        end
+    end
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local NicknameBox = Instance.new("TextBox")
+local SaveNickButton = Instance.new("TextButton")
+local ServerNameBox = Instance.new("TextBox")
+local SaveButton = Instance.new("TextButton")
+local ScrollFrame = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+MainFrame.Size = UDim2.new(0, 250, 0, 350)
+MainFrame.Position = UDim2.new(0.5, -125, 0.5, -175)
+MainFrame.Active = true
+MainFrame.Draggable = true
+
+Title.Parent = MainFrame
+Title.Text = "Servidores Salvos"
+Title.Size = UDim2.new(1, 0, 0, 30)
+Title.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 16
+
+NicknameBox.Parent = MainFrame
+NicknameBox.PlaceholderText = "Seu Nickname..."
+NicknameBox.Size = UDim2.new(1, -20, 0, 30)
+NicknameBox.Position = UDim2.new(0, 10, 0, 40)
+NicknameBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+NicknameBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+NicknameBox.Text = savedNickname
+
+SaveNickButton.Parent = MainFrame
+SaveNickButton.Text = "Salvar Nickname"
+SaveNickButton.Size = UDim2.new(1, -20, 0, 30)
+SaveNickButton.Position = UDim2.new(0, 10, 0, 80)
+SaveNickButton.BackgroundColor3 = Color3.fromRGB(50, 100, 150)
+SaveNickButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+ServerNameBox.Parent = MainFrame
+ServerNameBox.PlaceholderText = "Nome do Servidor..."
+ServerNameBox.Size = UDim2.new(1, -20, 0, 30)
+ServerNameBox.Position = UDim2.new(0, 10, 0, 120)
+ServerNameBox.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+ServerNameBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+SaveButton.Parent = MainFrame
+SaveButton.Text = "Salvar Servidor Atual"
+SaveButton.Size = UDim2.new(1, -20, 0, 30)
+SaveButton.Position = UDim2.new(0, 10, 0, 160)
+SaveButton.BackgroundColor3 = Color3.fromRGB(50, 150, 50)
+SaveButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+ScrollFrame.Parent = MainFrame
+ScrollFrame.Size = UDim2.new(1, -20, 0, 130)
+ScrollFrame.Position = UDim2.new(0, 10, 0, 200)
+ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
+ScrollFrame.BackgroundTransparency = 1
+ScrollFrame.ScrollBarThickness = 5
+
+UIListLayout.Parent = ScrollFrame
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+SaveNickButton.MouseButton1Click:Connect(function()
+    if NicknameBox.Text ~= "" then
+        savedNickname = NicknameBox.Text
+        SaveNickButton.Text = "Nick Salvo!"
+        SaveToFile()
+        wait(1.5)
+        SaveNickButton.Text = "Salvar Nickname"
+    end
+end)
+
+SaveButton.MouseButton1Click:Connect(function()
+    local serverName = ServerNameBox.Text
+    if serverName == "" then serverName = "Servidor Sem Nome" end
+
+    local serverData = {
+        name = serverName,
+        jobId = game.JobId,
+        placeName = game:GetService("MarketplaceService"):GetProductInfo(gameId).Name,
+        owner = savedNickname
+    }
+
+    table.insert(serversData, serverData)
+    SaveButton.Text = "Servidor Salvo!"
+    SaveToFile()
+    wait(1.5)
+    SaveButton.Text = "Salvar Servidor Atual"
+
+    UpdateServerList()
+end)
+
+function UpdateServerList()
+    for _, child in pairs(ScrollFrame:GetChildren()) do
+        if child:IsA("Frame") then
+            child:Destroy()
+        end
+    end
+
+    for index, server in ipairs(serversData) do
+        local ServerFrame = Instance.new("Frame")
+        local ServerButton = Instance.new("TextButton")
+        local DeleteButton = Instance.new("TextButton")
+
+        ServerFrame.Parent = ScrollFrame
+        ServerFrame.Size = UDim2.new(1, 0, 0, 30)
+        ServerFrame.BackgroundTransparency = 1
+
+        ServerButton.Parent = ServerFrame
+        ServerButton.Size = UDim2.new(0.8, 0, 1, 0)
+        ServerButton.Position = UDim2.new(0, 0, 0, 0)
+        ServerButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
+        ServerButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        ServerButton.Text = "[" .. server.owner .. "] " .. server.name .. " (" .. server.placeName .. ")"
+
+        DeleteButton.Parent = ServerFrame
+        DeleteButton.Size = UDim2.new(0.2, -5, 1, 0)
+        DeleteButton.Position = UDim2.new(0.8, 5, 0, 0)
+        DeleteButton.BackgroundColor3 = Color3.fromRGB(150, 50, 50)
+        DeleteButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        DeleteButton.Text = "X"
+
+        ServerButton.MouseButton1Click:Connect(function()
+            TeleportService:TeleportToPlaceInstance(gameId, server.jobId, player)
+        end)
+
+        DeleteButton.MouseButton1Click:Connect(function()
+            table.remove(serversData, index)
+            SaveToFile()
+            UpdateServerList()
+        end)
+    end
+
+    ScrollFrame.CanvasSize = UDim2.new(0, 0, 0, #serversData * 35)
+end
+
+LoadFromFile()
+UpdateServerList()
