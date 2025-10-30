@@ -1,5 +1,8 @@
+local Blur = Instance.new("BlurEffect", game.Lighting)
+Blur.Size = 20
+
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 ScreenGui.Name = "Hexagon"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.IgnoreGuiInset = true
@@ -17,15 +20,80 @@ bgCorner.CornerRadius = UDim.new(0, 12)
 local Title = Instance.new("TextLabel")
 Title.Parent = Background
 Title.Size = UDim2.new(1, 0, 1, 0)
-Title.Position = UDim2.new(0, 0, 0, -40)
+Title.Position = UDim2.new(0, 0, 0, -20)
 Title.BackgroundTransparency = 1
-Title.Text = "LOADER"
+Title.Text = "HEXAGON"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 32
 
+local Desc = Instance.new("TextLabel")
+Desc.Parent = Background
+Desc.Size = UDim2.new(1, 0, 1, 0)
+Desc.Position = UDim2.new(0, 0, 0, 5)
+Desc.BackgroundTransparency = 1
+Desc.Text = "by Roun95"
+Desc.TextColor3 = Color3.fromRGB(200, 200, 200)
+Desc.Font = Enum.Font.Gotham
+Desc.TextSize = 16
+
+local ProgressBar = Instance.new("Frame")
+ProgressBar.Parent = Background
+ProgressBar.Position = UDim2.new(0, 20, 1, -30)
+ProgressBar.Size = UDim2.new(1, -40, 0, 6)
+ProgressBar.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+ProgressBar.BorderSizePixel = 0
+
+local ProgressCorner = Instance.new("UICorner")
+ProgressCorner.Parent = ProgressBar
+ProgressCorner.CornerRadius = UDim.new(0.5,0)
+
+local PercentText = Instance.new("TextLabel")
+PercentText.Parent = Background
+PercentText.Size = UDim2.new(1, 0, 1, 0)
+PercentText.Position = UDim2.new(0, 0, 0, 50)
+PercentText.BackgroundTransparency = 1
+PercentText.Text = "0%"
+PercentText.TextColor3 = Color3.fromRGB(150, 150, 150)
+PercentText.Font = Enum.Font.Gotham
+PercentText.TextSize = 12
+
+-- Loading Animation
+local totalTime = 9 -- Seconds
+local steps = 100
+local delayPerStep = totalTime / steps
+
+for i = 1, steps do
+    ProgressBar.Size = UDim2.new(i/steps, -40, 0, 6)
+    PercentText.Text = i .. "%"
+    wait(delayPerStep)
+end
+
+Background.Visible = False
+wait(1)
+
+local bgCountry = Instance.new("Frame")
+bgCountry.Parent = ScreenGui
+bgCountry.Size = UDim2.new(0, 380, 0, 190)
+bgCountry.Position = UDim2.new(0.28, 0, 0.28, 0)
+bgCountry.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+
+local bggCorner = Instance.new("UICorner")
+bggCorner.Parent = bgCountry
+bggCorner.CornerRadius = UDim.new(0, 12)
+
+local bgTitle = Instance.new("TextLabel")
+bgTitle.Parent = bgCountry
+bgTitle.Size = UDim2.new(1, 0, 1, 0)
+bgTitle.Position = UDim2.new(0, 0, 0, -40)
+bgTitle.BackgroundTransparency = 1
+bgTitle.Text = "LOADER"
+bgTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+bgTitle.Font = Enum.Font.GothamBold
+bgTitle.TextSize = 32
+
 local US = Instance.new("TextButton")
-US.Parent = Background
+US.Parent = bgCountry
 US.Size = UDim2.new(0, 100, 0, 50)
 US.Position = UDim2.new(0.2, 0, 0.5, 0)
 US.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
@@ -33,9 +101,17 @@ US.Text = "English"
 US.TextColor3 = Color3.fromRGB(255, 255, 255)
 US.Font = Enum.Font.Gotham
 US.TextSize = 10
+US.MouseButton1Up:Connect(function()
+Blur:Destroy()
+ScreenGui:Destroy()
+end)
+
+local usCorner = Instance.new("UICorner")
+usCorner.Parent = US
+usCorner.CornerRadius = UDim.new(0, 12)
 
 local AS = Instance.new("TextButton")
-AS.Parent = Background
+AS.Parent = bgCountry
 AS.Size = UDim2.new(0, 100, 0, 50)
 AS.Position = UDim2.new(0.5, 0, 0.5, 0)
 AS.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
@@ -43,6 +119,11 @@ AS.Text = "Arabe"
 AS.TextColor3 = Color3.fromRGB(255, 255, 255)
 AS.Font = Enum.Font.Gotham
 AS.TextSize = 10
+AS.MouseButton1Up:Connect(function()
+Blur:Destroy()
+ScreenGui:Destroy()
+end)
 
--- Delete GUI and BLUR in the end
--- ScreenGui:Destroy()
+local asCorner = Instance.new("UICorner")
+asCorner.Parent = AS
+asCorner.CornerRadius = UDim.new(0, 12)
