@@ -1,0 +1,48 @@
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Name = "Hexagon"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.IgnoreGuiInset = true
+
+local Background = Instance.new("Frame")
+Background.Parent = ScreenGui
+Background.Size = UDim2.new(0, 380, 0, 190)
+Background.Position = UDim2.new(0.28, 0, 0.28, 0)
+Background.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+
+local bgCorner = Instance.new("UICorner")
+bgCorner.Parent = Background
+bgCorner.CornerRadius = UDim.new(0, 12)
+
+local Title = Instance.new("TextLabel")
+Title.Parent = Background
+Title.Size = UDim2.new(1, 0, 1, 0)
+Title.Position = UDim2.new(0, 0, 0, -40)
+Title.BackgroundTransparency = 1
+Title.Text = "LOADER"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 32
+
+local US = Instance.new("TextButton")
+US.Parent = Background
+US.Size = UDim2.new(0, 100, 0, 50)
+US.Position = UDim2.new(0.2, 0, 0.5, 0)
+US.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+US.Text = "English"
+US.TextColor3 = Color3.fromRGB(255, 255, 255)
+US.Font = Enum.Font.Gotham
+US.TextSize = 10
+
+local AS = Instance.new("TextButton")
+AS.Parent = Background
+AS.Size = UDim2.new(0, 100, 0, 50)
+AS.Position = UDim2.new(0.5, 0, 0.5, 0)
+AS.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
+AS.Text = "Arabe"
+AS.TextColor3 = Color3.fromRGB(255, 255, 255)
+AS.Font = Enum.Font.Gotham
+AS.TextSize = 10
+
+-- Delete GUI and BLUR in the end
+-- ScreenGui:Destroy()
