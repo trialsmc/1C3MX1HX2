@@ -1,0 +1,140 @@
+--// Coquette Hub ADMIN
+-- FE
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
+local RunService = game:GetService("RunService")
+
+-- CriaÃ§Ã£o da UI
+local ScreenGui = Instance.new("ScreenGui", LocalPlayer.PlayerGui)
+ScreenGui.Name = "CoquetteHubADMIN"
+
+local Frame = Instance.new("Frame", ScreenGui)
+Frame.Size = UDim2.new(0, 250, 0, 300)
+Frame.Position = UDim2.new(0.05, 0, 0.2, 0)
+Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Frame.BackgroundTransparency = 0.2
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Text = "Coquette Hub ADMIN"
+Title.TextColor3 = Color3.fromRGB(0, 255, 0)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 22
+
+-- TextBox para digitar nome do player
+local TextBox = Instance.new("TextBox", Frame)
+TextBox.Size = UDim2.new(1, -10, 0, 30)
+TextBox.Position = UDim2.new(0, 5, 0, 50)
+TextBox.PlaceholderText = "Nome do player..."
+TextBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+TextBox.TextColor3 = Color3.new(1,1,1)
+
+-- FunÃ§Ã£o para buscar player
+local function getPlayer(name)
+    for _, plr in pairs(Players:GetPlayers()) do
+        if string.lower(plr.Name):sub(1, #name) == string.lower(name) then
+            return plr
+        end
+    end
+end
+
+-- BotÃ£o Kick
+local KickBtn = Instance.new("TextButton", Frame)
+KickBtn.Size = UDim2.new(1, -10, 0, 30)
+KickBtn.Position = UDim2.new(0, 5, 0, 90)
+KickBtn.Text = "Kick"
+KickBtn.BackgroundColor3 = Color3.fromRGB(60, 0, 0)
+KickBtn.TextColor3 = Color3.new(1,1,1)
+
+KickBtn.MouseButton1Click:Connect(function()
+    local target = getPlayer(TextBox.Text)
+    if target and target.Character then
+        target.Character:Destroy()
+        StarterGui:SetCore("ChatMakeSystemMessage", {
+            Text = target.Name .. " foi banido otÃ¡rio KAKAKKAKAKAK",
+            Color = Color3.fromRGB(255, 0, 0)
+        })
+    end
+end)
+
+-- BotÃ£o Kill
+local KillBtn = Instance.new("TextButton", Frame)
+KillBtn.Size = UDim2.new(1, -10, 0, 30)
+KillBtn.Position = UDim2.new(0, 5, 0, 130)
+KillBtn.Text = "Kill"
+KillBtn.BackgroundColor3 = Color3.fromRGB(80, 0, 0)
+KillBtn.TextColor3 = Color3.new(1,1,1)
+
+KillBtn.MouseButton1Click:Connect(function()
+    local target = getPlayer(TextBox.Text)
+    if target and target.Character and target.Character:FindFirstChild("Humanoid") then
+        target.Character.Humanoid.Health = 0
+        StarterGui:SetCore("ChatMakeSystemMessage", {
+            Text = target.Name .. " foi morto pelo Coquette Hub ADMIN",
+            Color = Color3.fromRGB(200, 0, 200)
+        })
+    end
+end)
+
+-- BotÃ£o Jail
+local JailBtn = Instance.new("TextButton", Frame)
+JailBtn.Size = UDim2.new(1, -10, 0, 30)
+JailBtn.Position = UDim2.new(0, 5, 0, 170)
+JailBtn.Text = "Jail"
+JailBtn.BackgroundColor3 = Color3.fromRGB(0, 60, 0)
+JailBtn.TextColor3 = Color3.new(1,1,1)
+
+JailBtn.MouseButton1Click:Connect(function()
+    local target = getPlayer(TextBox.Text)
+    if target and target.Character and target.Character:FindFirstChild("HumanoidRootPart") then
+        local root = target.Character.HumanoidRootPart
+
+        local jail = Instance.new("Part")
+        jail.Size = Vector3.new(10,15,10)
+        jail.Anchored = true
+        jail.Transparency = 0.5
+        jail.Color = Color3.fromRGB(0,255,0)
+        jail.Position = root.Position
+        jail.Parent = workspace
+        StarterGui:SetCore("ChatMakeSystemMessage", {
+            Text = target.Name .. " foi preso na JAULA do Coquette Hub ADMIN",
+            Color = Color3.fromRGB(0, 255, 0)
+        })
+    end
+end)
+
+-- BotÃ£o Tornado
+local TornadoBtn = Instance.new("TextButton", Frame)
+TornadoBtn.Size = UDim2.new(1, -10, 0, 30)
+TornadoBtn.Position = UDim2.new(0, 5, 0, 210)
+TornadoBtn.Text = "Tornado"
+TornadoBtn.BackgroundColor3 = Color3.fromRGB(0, 0, 80)
+TornadoBtn.TextColor3 = Color3.new(1,1,1)
+
+TornadoBtn.MouseButton1Click:Connect(function()
+    for i = 1, 10 do
+        local fakeHouse = Instance.new("Part")
+        fakeHouse.Size = Vector3.new(30,20,30)
+        fakeHouse.Anchored = false
+        fakeHouse.Position = LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(math.random(-50,50), 10, math.random(-50,50))
+        fakeHouse.Color = Color3.fromRGB(math.random(50,255), math.random(50,255), math.random(50,255))
+        fakeHouse.Parent = workspace
+
+        -- efeito de tornado (rodando e subindo)
+        RunService.Heartbeat:Connect(function()
+            fakeHouse.Velocity = Vector3.new(
+                math.sin(tick()*5)*50,
+                50,
+                math.cos(tick()*5)*50
+            )
+        end)
+    end
+
+    StarterGui:SetCore("ChatMakeSystemMessage", {
+        Text = "ðŸŒªï¸ Tornado iniciado pelo Coquette Hub ADMIN!",
+        Color = Color3.fromRGB(0, 200, 255)
+    })
+end)
