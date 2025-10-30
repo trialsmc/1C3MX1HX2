@@ -36,6 +36,12 @@ Desc.Text = "by Roun95"
 Desc.TextColor3 = Color3.fromRGB(200, 200, 200)
 Desc.Font = Enum.Font.Gotham
 Desc.TextSize = 16
+while true do
+wait(5)
+Desc.Text = "Prueba uno"
+wait(5)
+Desc.Text = "Prueba dos"
+end
 
 local ProgressBar = Instance.new("Frame")
 ProgressBar.Parent = Background
@@ -59,7 +65,7 @@ PercentText.Font = Enum.Font.Gotham
 PercentText.TextSize = 12
 
 -- Loading Animation
-local totalTime = 9 -- Seconds
+local totalTime = 10 -- Seconds
 local steps = 100
 local delayPerStep = totalTime / steps
 
@@ -70,7 +76,7 @@ for i = 1, steps do
 end
 
 Background.Visible = False
-wait(1)
+wait(0.5)
 
 local bgCountry = Instance.new("Frame")
 bgCountry.Parent = ScreenGui
@@ -100,10 +106,11 @@ US.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
 US.Text = "English"
 US.TextColor3 = Color3.fromRGB(255, 255, 255)
 US.Font = Enum.Font.Gotham
-US.TextSize = 10
+US.TextSize = 14
 US.MouseButton1Up:Connect(function()
 Blur:Destroy()
 ScreenGui:Destroy()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/main/MainHDEV"))()
 end)
 
 local usCorner = Instance.new("UICorner")
@@ -118,7 +125,7 @@ AS.BackgroundColor3 = Color3.fromRGB(150, 150, 150)
 AS.Text = "Arabe"
 AS.TextColor3 = Color3.fromRGB(255, 255, 255)
 AS.Font = Enum.Font.Gotham
-AS.TextSize = 10
+AS.TextSize = 14
 AS.MouseButton1Up:Connect(function()
 Blur:Destroy()
 ScreenGui:Destroy()
@@ -127,3 +134,4 @@ end)
 local asCorner = Instance.new("UICorner")
 asCorner.Parent = AS
 asCorner.CornerRadius = UDim.new(0, 12)
+
