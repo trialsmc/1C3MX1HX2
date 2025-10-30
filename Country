@@ -36,12 +36,6 @@ Desc.Text = "by Roun95"
 Desc.TextColor3 = Color3.fromRGB(200, 200, 200)
 Desc.Font = Enum.Font.Gotham
 Desc.TextSize = 16
-while true do
-wait(5)
-Desc.Text = "Prueba uno"
-wait(5)
-Desc.Text = "Prueba dos"
-end
 
 local ProgressBar = Instance.new("Frame")
 ProgressBar.Parent = Background
@@ -134,4 +128,5 @@ end)
 local asCorner = Instance.new("UICorner")
 asCorner.Parent = AS
 asCorner.CornerRadius = UDim.new(0, 12)
+
 
