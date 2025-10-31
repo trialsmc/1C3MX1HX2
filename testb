@@ -7,7 +7,7 @@ gui.Name = "hexagonlib"
 gui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0, 440, 0, 280)
+main.Size = UDim2.new(0, 440, 0, 300)
 main.Position = UDim2.new(0.5, -220, 0.5, -150)
 main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 main.BackgroundTransparency = 0.1
