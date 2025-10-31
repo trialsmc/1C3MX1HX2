@@ -12,7 +12,7 @@ gui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", gui)
 main.Size = UDim2.new(0, 440, 0, 280)
-main.Position = UDim2.new(0.5, -260, 0.5, -160)
+main.Position = UDim2.new(0.5, -220, 0.5, -150)
 main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 main.BackgroundTransparency = 0.2
 main.BorderSizePixel = 0
@@ -39,6 +39,15 @@ close.TextSize = 20
 close.MouseButton1Click:Connect(function()
 	gui:Destroy()
 	blur:Destroy()
+end)
+
+local minimize = Instance.new("ImageButton", main)
+minimize.Size = UDim2.new(0, 45, 0, 45)
+minimize.Position = UDim2.new(0.3, -100, 0.7, -200)
+Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 10)
+minimize.MouseButton1Click:Connect(function()
+	gui.Visible = False
+	blur.Enabled = False
 end)
 
 local tabNames = {"Home", "Client", "SUS", "FE", "PlayerHack"}
