@@ -1,143 +1,237 @@
---[[
-  Creator: kyoshi
-  https/github/realgengar
-  by:kyoshi
---]]
+-- RochazHub 2.0 - by xrtxt195 (Rochas313)
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
 
-local ScreenGui = Instance.new("ScreenGui")
-local Frame = Instance.new("Frame")
-local Button1 = Instance.new("TextButton")
-local Button2 = Instance.new("TextButton")
 
-ScreenGui.Name = "ScriptExecutorGui"
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-ScreenGui.ResetOnSpawn = false
+local blur = Instance.new("BlurEffect")
+blur.Size = 12
+blur.Parent = game.Lighting
 
-Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-Frame.BorderColor3 = Color3.new(1, 1, 1)
-Frame.BorderSizePixel = 2
-Frame.Size = UDim2.new(0, 350, 0, 250)
-Frame.Position = UDim2.new(0.5, -175, 1.2, 0)
 
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 7)
-UICorner.Parent = Frame
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "RochazHub2"
+gui.ResetOnSpawn = false
 
-local LogoImage = Instance.new("ImageLabel")
-LogoImage.Parent = Frame
-LogoImage.Size = UDim2.new(0, 59, 0, 50)
-LogoImage.Position = UDim2.new(0.81, 0, 0, 10)
-LogoImage.BackgroundTransparency = 1
-LogoImage.Image = "rbxassetid://72495850369898"
 
-local Title = Instance.new("TextLabel")
-Title.Parent = Frame
-Title.Size = UDim2.new(0, 250, 0, 60)
-Title.Position = UDim2.new(0.2, -50, 0, 9)
-Title.BackgroundTransparency = 1
-Title.Text = "CLIENT"
-Title.TextColor3 = Color3.new(1, 1, 1)
-Title.Font = Enum.Font.SourceSansBold
-Title.TextSize = 37
-Title.TextXAlignment = Enum.TextXAlignment.Left
+local main = Instance.new("Frame", gui)
+main.Size = UDim2.new(0, 520, 0, 320)
+main.Position = UDim2.new(0.5, -260, 0.5, -160)
+main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+main.BackgroundTransparency = 0.2
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
+Instance.new("UICorner", main).CornerRadius = UDim.new(0, 10)
 
-local Title2 = Instance.new("TextLabel")
-Title2.Parent = Frame
-Title2.Size = UDim2.new(0, 330, 0, 25)
-Title2.Position = UDim2.new(0.5, -165, 0, 190) 
-Title2.BackgroundTransparency = 1
-Title2.Text = "Working in both versions"
-Title2.TextColor3 = Color3.new(1, 1, 1)
-Title2.Font = Enum.Font.BuilderSansBold
-Title2.TextSize = 18
-Title2.TextXAlignment = Enum.TextXAlignment.Center
 
-local function styleButton(button)
-	button.BackgroundColor3 = Color3.new(0, 0, 0)
-	button.BorderSizePixel = 0 
-	button.Size = UDim2.new(0, 330, 0, 45)
-	button.TextColor3 = Color3.fromRGB(255, 255, 255)
-	button.TextSize = 23
+local title = Instance.new("TextLabel", main)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.BackgroundTransparency = 1
+title.Text = "🌑 RochazHub 2.0"
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
 
-	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0, 6)
-	corner.Parent = button
 
-	local stroke = Instance.new("UIStroke")
-	stroke.Color = Color3.fromRGB(150, 90, 60) -- marrom claro
-	stroke.Thickness = 2.5
-	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	stroke.Parent = button
+local close = Instance.new("TextButton", main)
+close.Size = UDim2.new(0, 40, 0, 40)
+close.Position = UDim2.new(1, -40, 0, 0)
+close.BackgroundTransparency = 1
+close.Text = "X"
+close.TextColor3 = Color3.fromRGB(255, 70, 70)
+close.Font = Enum.Font.GothamBold
+close.TextSize = 20
+close.MouseButton1Click:Connect(function()
+	gui:Destroy()
+	blur:Destroy()
+end)
 
-	-- Hover animation
-	button.MouseEnter:Connect(function()
-		TweenService:Create(button, TweenInfo.new(0.2), {
-			BackgroundColor3 = Color3.fromRGB(30, 30, 30),
-			Size = UDim2.new(0, 340, 0, 50)
-		}):Play()
+
+local tabNames = {"Home", "Client", "SUS", "FE", "PlayerHack"}
+local tabButtons = {}
+local currentTab = nil
+
+
+local tabBar = Instance.new("ScrollingFrame", main)
+tabBar.Size = UDim2.new(1, -20, 0, 30)
+tabBar.Position = UDim2.new(0, 10, 0, 50)
+tabBar.BackgroundTransparency = 1
+tabBar.ScrollBarThickness = 4
+tabBar.ScrollingDirection = Enum.ScrollingDirection.X
+tabBar.CanvasSize = UDim2.new(0, 0, 0, 0)
+tabBar.AutomaticCanvasSize = Enum.AutomaticSize.X
+
+local tabLayout = Instance.new("UIListLayout", tabBar)
+tabLayout.FillDirection = Enum.FillDirection.Horizontal
+tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+tabLayout.Padding = UDim.new(0, 8)
+
+
+for _, name in ipairs(tabNames) do
+	local btn = Instance.new("TextButton")
+	btn.Size = UDim2.new(0, 100, 1, 0)
+	btn.Text = name
+	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+	btn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+	btn.Font = Enum.Font.Gotham
+	btn.TextSize = 14
+	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
+	btn.Parent = tabBar
+	tabButtons[name] = btn
+
+
+	btn.MouseEnter:Connect(function()
+		if currentTab ~= name then
+			btn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+		end
 	end)
-
-	button.MouseLeave:Connect(function()
-		TweenService:Create(button, TweenInfo.new(0.2), {
-			BackgroundColor3 = Color3.new(0, 0, 0),
-			Size = UDim2.new(0, 330, 0, 45)
-		}):Play()
-	end)
-	button.MouseButton1Click:Connect(function()
-		local clickAnim = TweenService:Create(button, TweenInfo.new(0.1), {
-			Size = UDim2.new(0, 325, 0, 42)
-		})
-		clickAnim:Play()
-		clickAnim.Completed:Wait()
-		TweenService:Create(button, TweenInfo.new(0.1), {
-			Size = UDim2.new(0, 330, 0, 45)
-		}):Play()
+	btn.MouseLeave:Connect(function()
+		if currentTab ~= name then
+			btn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+		end
 	end)
 end
 
-Button1.Parent = Frame
-Button1.Position = UDim2.new(0.5, -165, 0, 80)
-Button1.Text = "Português"
-styleButton(Button1)
 
-Button2.Parent = Frame
-Button2.Position = UDim2.new(0.5, -165, 0, 140)
-Button2.Text = "English"
-styleButton(Button2)
+local content = Instance.new("Frame", main)
+content.Position = UDim2.new(0, 0, 0, 90)
+content.Size = UDim2.new(1, 0, 1, -90)
+content.BackgroundTransparency = 1
 
-Button1.MouseButton1Click:Connect(function()
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/realgengar/Brookhaven/refs/heads/main/Source.lua'), true))()
-	ScreenGui:Destroy()
-end)
 
-Button2.MouseButton1Click:Connect(function()
-	loadstring(game:HttpGet(('https://raw.githubusercontent.com/realgengar/Brookhaven/refs/heads/main/Source2.lua'), true))()
-	ScreenGui:Destroy()
-end)
-
-Frame.BackgroundTransparency = 1
-Title.TextTransparency = 1
-Title2.TextTransparency = 1
-Button1.TextTransparency = 1
-Button2.TextTransparency = 1
-LogoImage.ImageTransparency = 1
-
-TweenService:Create(Frame, TweenInfo.new(0.4), {
-	Position = UDim2.new(0.5, -175, 0.5, -125),
-	BackgroundTransparency = 0
-}):Play()
-
-TweenService:Create(Title, TweenInfo.new(0.5), {TextTransparency = 0}):Play()
-TweenService:Create(Title2, TweenInfo.new(0.5), {TextTransparency = 0}):Play()
-TweenService:Create(Button1, TweenInfo.new(0.5), {TextTransparency = 0}):Play()
-TweenService:Create(Button2, TweenInfo.new(0.5), {TextTransparency = 0}):Play()
-TweenService:Create(LogoImage, TweenInfo.new(0.5), {ImageTransparency = 0}):Play()
-task.delay(5, function()
-	if ScreenGui then
-		ScreenGui:Destroy()
+local tabContents = {
+	Home = {},
+	Client = {
+		{"🌈 Disco", [[
+while true do
+	game.Lighting.Ambient = Color3.new(math.random(), math.random(), math.random())
+	wait(0.2)
+	game.Lighting.ShadowColor = Color3.new(math.random(), math.random(), math.random())
+	wait(0.2)
+end
+		]]},
+		{"🧱 Unanchor Everything", [[
+for _, obj in pairs(workspace:GetDescendants()) do
+	if obj:IsA("BasePart") then
+		obj.Anchored = false
 	end
-end)
-wait(0.1)
-loadstring(game:HttpGet(('https://raw.githubusercontent.com/realgengar/scripts/refs/heads/main/users.lua'),true))()
+end
+		]]},
+	},
+	SUS = {
+		{"JAB Hub", [[loadstring(game:HttpGet("https://rawscripts.net/raw/Just-a-baseplate.-JAB-hub-43915"))()]]},
+		{"Hat Hub", [[loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Hat-Hub-33544"))()]]},
+		{"Player Clapper/Banger", [[loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Player-clapper-or-banger-33270"))()]]},
+	},
+FE = {
+	{"Hat Hub", [[loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Hat-Hub-33544"))()]]},
+	{"JAB Hub", [[loadstring(game:HttpGet("https://rawscripts.net/raw/Just-a-baseplate.-JAB-hub-43915"))()]]},
+	{"Rochaz Hub", [[loadstring(game:HttpGet("https://pastebin.com/raw/KX0P2rd7"))()]]},
+	{"Krystal Dance", [[loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-Krystal-dance-v3-giant-dance-1-47440"))()]]},
+	{"FAKELAG (Troll)", [[loadstring(game:HttpGet("https://raw.githubusercontent.com/Biem6ondo/FAKELAG/refs/heads/main/Fakelag"))()]]},
+},
+
+	PlayerHack = {
+		{"SpeedHack", [[
+local p = game.Players.LocalPlayer
+if p.Character and p.Character:FindFirstChild("Humanoid") then
+	p.Character.Humanoid.WalkSpeed = 100
+end
+		]]},
+		{"JumpHack", [[
+local p = game.Players.LocalPlayer
+if p.Character and p.Character:FindFirstChild("Humanoid") then
+	p.Character.Humanoid.JumpPower = 100
+end
+		]]},
+		{"Fly", [[
+local p = game.Players.LocalPlayer
+local hrp = p.Character:FindFirstChild("HumanoidRootPart")
+if hrp then
+	local bv = Instance.new("BodyVelocity", hrp)
+	bv.MaxForce = Vector3.new(1e5,1e5,1e5)
+	bv.Velocity = Vector3.zero
+	game:GetService("UserInputService").InputBegan:Connect(function(input)
+		if input.KeyCode == Enum.KeyCode.Space then
+			bv.Velocity = Vector3.new(0, 60, 0)
+		elseif input.KeyCode == Enum.KeyCode.LeftControl then
+			bv.Velocity = Vector3.new(0, -60, 0)
+		end
+	end)
+end
+		]]},
+	},
+}
+
+
+local function switchTab(tab)
+	if currentTab == tab then return end
+	currentTab = tab
+
+	local oldContent = content:Clone()
+	oldContent.Parent = main
+	oldContent.ZIndex = 0
+	oldContent.Position = content.Position
+
+	content:ClearAllChildren()
+	content.Position = UDim2.new(1, 0, 0, 90)
+	content.Visible = true
+
+	if tab == "Home" then
+		local label = Instance.new("TextLabel", content)
+		label.Size = UDim2.new(1, -40, 1, -20)
+		label.Position = UDim2.new(0, 20, 0, 10)
+		label.BackgroundTransparency = 1
+		label.TextColor3 = Color3.fromRGB(255, 255, 255)
+		label.Font = Enum.Font.Gotham
+		label.TextSize = 16
+		label.TextWrapped = true
+		label.Text = "RochazHub 2.0: A Updated version of RochazHub by xrtxt195 (Rochas313)"
+	else
+		for i, data in ipairs(tabContents[tab]) do
+			local name, code = unpack(data)
+			local b = Instance.new("TextButton", content)
+			b.Size = UDim2.new(0, 200, 0, 30)
+			b.Position = UDim2.new(0, 20, 0, (i - 1) * 40)
+			b.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+			b.TextColor3 = Color3.fromRGB(255, 255, 255)
+			b.Text = name
+			b.Font = Enum.Font.Gotham
+			b.TextSize = 14
+			Instance.new("UICorner", b).CornerRadius = UDim.new(0, 6)
+			b.MouseButton1Click:Connect(function()
+				loadstring(code)()
+			end)
+		end
+	end
+
+
+	TweenService:Create(content, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {
+		Position = UDim2.new(0, 0, 0, 90)
+	}):Play()
+	TweenService:Create(oldContent, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {
+		Position = UDim2.new(-1, 0, 0, 90)
+	}):Play()
+	game:GetService("Debris"):AddItem(oldContent, 0.4)
+
+	
+	for tName, tBtn in pairs(tabButtons) do
+		if tName == tab then
+			tBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70) -- ativo
+		else
+			tBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- inativo
+		end
+	end
+end
+
+
+for tab, btn in pairs(tabButtons) do
+	btn.MouseButton1Click:Connect(function()
+		switchTab(tab)
+	end)
+end
+
+
+switchTab("Home")
