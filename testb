@@ -89,7 +89,7 @@ end
 
 local content = Instance.new("Frame", main)
 content.Position = UDim2.new(0, 0, 0, 90)
-content.Size = UDim2.new(1, 0, 1, -90)
+content.Size = UDim2.new(1, 0, 1, 0)
 content.BackgroundTransparency = 1
 
 local tabContents = {
@@ -137,22 +137,6 @@ if p.Character and p.Character:FindFirstChild("Humanoid") then
 	p.Character.Humanoid.JumpPower = 100
 end
 		]]},
-		{"Fly", [[
-local p = game.Players.LocalPlayer
-local hrp = p.Character:FindFirstChild("HumanoidRootPart")
-if hrp then
-	local bv = Instance.new("BodyVelocity", hrp)
-	bv.MaxForce = Vector3.new(1e5,1e5,1e5)
-	bv.Velocity = Vector3.zero
-	game:GetService("UserInputService").InputBegan:Connect(function(input)
-		if input.KeyCode == Enum.KeyCode.Space then
-			bv.Velocity = Vector3.new(0, 60, 0)
-		elseif input.KeyCode == Enum.KeyCode.LeftControl then
-			bv.Velocity = Vector3.new(0, -60, 0)
-		end
-	end)
-end
-		]]},
 	},
 }
 
@@ -161,7 +145,7 @@ local function switchTab(tab)
 	currentTab = tab
 
 	content:ClearAllChildren()
-	content.Position = UDim2.new(1, 0, 0, 90)
+	content.Position = UDim2.new(0, 0, 0, 90)
 	content.Visible = true
 
 	if tab == "Home" then
