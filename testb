@@ -42,6 +42,7 @@ close.MouseButton1Click:Connect(function()
 end)
 
 local minimize = Instance.new("ImageButton", gui)
+minimize.Draggable = true
 minimize.Size = UDim2.new(0, 45, 0, 45)
 minimize.Position = UDim2.new(0.3, -100, 0.7, -200)
 Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 10)
