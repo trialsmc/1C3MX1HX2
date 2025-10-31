@@ -89,7 +89,7 @@ end
 
 local content = Instance.new("Frame", main)
 content.Position = UDim2.new(0, 0, 0, 90)
-content.Size = UDim2.new(1, 0, 1, 0)
+content.Size = UDim2.new(1, 0, 0.7, 0)
 content.BackgroundTransparency = 1
 
 local tabContents = {
@@ -162,7 +162,7 @@ local function switchTab(tab)
 		for i, data in ipairs(tabContents[tab]) do
 			local name, code = unpack(data)
 			local b = Instance.new("TextButton", content)
-			b.Size = UDim2.new(0, 200, 0, 30)
+			b.Size = UDim2.new(0, 200, 0, 25)
 			b.Position = UDim2.new(0, 20, 0, (i - 1) * 40)
 			b.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 			b.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -178,9 +178,9 @@ local function switchTab(tab)
 	
 	for tName, tBtn in pairs(tabButtons) do
 		if tName == tab then
-			tBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70) -- ativo
+			tBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70) -- Active
 		else
-			tBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- inativo
+			tBtn.BackgroundColor3 = Color3.fromRGB(35, 35, 35) -- Inactive
 		end
 	end
 end
