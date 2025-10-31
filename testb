@@ -11,7 +11,7 @@ gui.Name = "hexagonlib"
 gui.ResetOnSpawn = false
 
 local main = Instance.new("Frame", gui)
-main.Size = UDim2.new(0, 520, 0, 320)
+main.Size = UDim2.new(0, 440, 0, 280)
 main.Position = UDim2.new(0.5, -260, 0.5, -160)
 main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
 main.BackgroundTransparency = 0.2
@@ -174,7 +174,7 @@ local function switchTab(tab)
 		label.Font = Enum.Font.Gotham
 		label.TextSize = 16
 		label.TextWrapped = true
-		label.Text = "RochazHub 2.0: A Updated version of RochazHub by xrtxt195 (Rochas313)"
+		label.Text = "Hexagon Ui Lib: A Updated version of Hexagon by Roun95 (Nova)"
 	else
 		for i, data in ipairs(tabContents[tab]) do
 			local name, code = unpack(data)
