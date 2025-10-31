@@ -6205,3 +6205,280 @@ end
 workspace.CurrentCamera.CameraSubject=game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
   end
 })
+
+------------------------------------------------------------------------------
+local autoTab = Window:MakeTab({"Event", "mappin"})
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HRP = Character:WaitForChild("HumanoidRootPart")
+
+local TP_DELAY = 2
+local TOTAL_EGGS = 10
+local JUMP_INTERVAL = 0.1 
+local JUMP_POWER = 5 
+
+autoTab:AddButton({
+    Name = "baby",
+    Callback = function()
+        Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        Humanoid = Character:WaitForChild("Humanoid")
+        HRP = Character:WaitForChild("HumanoidRootPart")
+
+        local eggFolder = workspace:FindFirstChild("EggHunt_Baby2")
+        if not eggFolder then return end
+
+        task.wait(2)
+
+        local originalCFrame = HRP.CFrame
+        local originalGravity = workspace.Gravity
+        local jumping = true
+
+        local jumpThread = task.spawn(function()
+            while jumping do
+                if Humanoid and Humanoid.Parent then
+                    Humanoid.JumpPower = JUMP_POWER
+                    Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+                task.wait(JUMP_INTERVAL)
+            end
+        end)
+
+        for i = 1, TOTAL_EGGS do
+            local egg = eggFolder:FindFirstChild("BABY_CandyCorn_" .. i)
+            if egg and HRP then
+                HRP.CFrame = egg.CFrame + Vector3.new(0, 4, 0)
+            end
+            task.wait(TP_DELAY)
+        end
+
+        jumping = false
+        task.wait(0.1)
+        HRP.CFrame = originalCFrame
+        workspace.Gravity = originalGravity
+    end
+})
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HRP = Character:WaitForChild("HumanoidRootPart")
+
+local TP_DELAY = 2
+local TOTAL_EGGS = 15
+local JUMP_INTERVAL = 0.1
+local JUMP_POWER = 5
+
+autoTab:AddButton({
+    Name = "fácil",
+    Callback = function()
+        Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        Humanoid = Character:WaitForChild("Humanoid")
+        HRP = Character:WaitForChild("HumanoidRootPart")
+
+        local eggFolder = workspace:FindFirstChild("EggHunt_Easy2")
+        if not eggFolder then return end
+
+        task.wait(2)
+
+        local originalCFrame = HRP.CFrame
+        local originalGravity = workspace.Gravity
+
+        local jumping = true
+        local jumpThread = task.spawn(function()
+            while jumping do
+                if Humanoid and Humanoid.Parent then
+                    Humanoid.JumpPower = JUMP_POWER
+                    Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+                task.wait(JUMP_INTERVAL)
+            end
+        end)
+
+        for i = 1, TOTAL_EGGS do
+            local egg = eggFolder:FindFirstChild("EASY_CandyCorn_" .. i)
+            if egg and HRP then
+                HRP.CFrame = egg.CFrame + Vector3.new(0, 4, 0)
+            end
+            task.wait(TP_DELAY)
+        end
+
+        jumping = false
+        task.wait(0.1)
+        HRP.CFrame = originalCFrame
+        workspace.Gravity = originalGravity
+    end
+})
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HRP = Character:WaitForChild("HumanoidRootPart")
+
+local TP_DELAY = 2
+local TOTAL_EGGS = 20
+local JUMP_INTERVAL = 0.1
+local JUMP_POWER = 5
+
+autoTab:AddButton({
+    Name = "medio",
+    Callback = function()
+        Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        Humanoid = Character:WaitForChild("Humanoid")
+        HRP = Character:WaitForChild("HumanoidRootPart")
+
+        local eggFolder = workspace:FindFirstChild("EggHunt_Medium2")
+        if not eggFolder then return end
+
+        task.wait(2)
+
+        local originalCFrame = HRP.CFrame
+        local originalGravity = workspace.Gravity
+
+        local jumping = true
+        local jumpThread = task.spawn(function()
+            while jumping do
+                if Humanoid and Humanoid.Parent then
+                    Humanoid.JumpPower = JUMP_POWER
+                    Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+                task.wait(JUMP_INTERVAL)
+            end
+        end)
+
+        for i = 1, TOTAL_EGGS do
+            local egg = eggFolder:FindFirstChild("NORMAL_CandyCorn_" .. i)
+            if egg and HRP then
+                HRP.CFrame = egg.CFrame + Vector3.new(0, 4, 0)
+            end
+            task.wait(TP_DELAY)
+        end
+
+        jumping = false
+        task.wait(0.1)
+        HRP.CFrame = originalCFrame
+        workspace.Gravity = originalGravity
+    end
+})
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HRP = Character:WaitForChild("HumanoidRootPart")
+
+local TP_DELAY = 2
+local TOTAL_EGGS = 25
+local JUMP_INTERVAL = 0.1
+local JUMP_POWER = 5
+
+autoTab:AddButton({
+    Name = "difícil",
+    Callback = function()
+        Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        Humanoid = Character:WaitForChild("Humanoid")
+        HRP = Character:WaitForChild("HumanoidRootPart")
+
+        local eggFolder = workspace:FindFirstChild("EggHunt_Hard2")
+        if not eggFolder then return end
+
+        task.wait(2)
+
+        local originalCFrame = HRP.CFrame
+        local originalGravity = workspace.Gravity
+
+        local jumping = true
+        local jumpThread = task.spawn(function()
+            while jumping do
+                if Humanoid and Humanoid.Parent then
+                    Humanoid.JumpPower = JUMP_POWER
+                    Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+                task.wait(JUMP_INTERVAL)
+            end
+        end)
+
+        for i = 1, TOTAL_EGGS do
+            local egg = eggFolder:FindFirstChild("HARD_CandyCorn_" .. i)
+            if egg and HRP then
+                HRP.CFrame = egg.CFrame + Vector3.new(0, 4, 0)
+            end
+            task.wait(TP_DELAY)
+        end
+
+        jumping = false
+        task.wait(0.1)
+        HRP.CFrame = originalCFrame
+        workspace.Gravity = originalGravity
+    end
+})
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HRP = Character:WaitForChild("HumanoidRootPart")
+
+local TP_DELAY = 2
+local TOTAL_EGGS = 30
+local JUMP_INTERVAL = 0.1
+local JUMP_POWER = 5
+
+autoTab:AddButton({
+    Name = "nivel de la casa",
+    Callback = function()
+        Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        Humanoid = Character:WaitForChild("Humanoid")
+        HRP = Character:WaitForChild("HumanoidRootPart")
+
+        local eggFolder = workspace:FindFirstChild("EggHunt_Extreme2")
+        if not eggFolder then return end
+
+        task.wait(2)
+
+        local originalCFrame = HRP.CFrame
+        local originalGravity = workspace.Gravity
+
+        local jumping = true
+        local jumpThread = task.spawn(function()
+            while jumping do
+                if Humanoid and Humanoid.Parent then
+                    Humanoid.JumpPower = JUMP_POWER
+                    Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+                task.wait(JUMP_INTERVAL)
+            end
+        end)
+
+        for i = 1, TOTAL_EGGS do
+            local egg = eggFolder:FindFirstChild("EXTREME_CandyCorn_" .. i)
+            if egg and HRP then
+                HRP.CFrame = egg.CFrame + Vector3.new(0, 4, 0)
+            end
+            task.wait(TP_DELAY)
+        end
+
+        jumping = false
+        task.wait(0.1)
+        HRP.CFrame = originalCFrame
+        workspace.Gravity = originalGravity
+    end
+})
+autoTab:AddButton({
+	Name = "Restaurar la velocidad, el salto y la gravedad",
+	Callback = function()
+		Humanoid.WalkSpeed = 16
+		Humanoid.JumpPower = 50
+		workspace.Gravity = 196.2
+		Player.Character.Humanoid.AutoRotate = true
+		if RotationConnection then
+			RotationConnection:Disconnect()
+			RotationConnection = nil
+		end
+	end
+})
