@@ -2,10 +2,6 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
 
-local blur = Instance.new("BlurEffect")
-blur.Size = 12
-blur.Parent = game.Lighting
-
 local gui = Instance.new("ScreenGui", game.CoreGui)
 gui.Name = "hexagonlib"
 gui.ResetOnSpawn = false
@@ -14,7 +10,7 @@ local main = Instance.new("Frame", gui)
 main.Size = UDim2.new(0, 440, 0, 280)
 main.Position = UDim2.new(0.5, -220, 0.5, -150)
 main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-main.BackgroundTransparency = 0.2
+main.BackgroundTransparency = 0.1
 main.BorderSizePixel = 0
 main.Active = true
 main.Draggable = true
@@ -23,7 +19,7 @@ Instance.new("UICorner", main).CornerRadius = UDim.new(0, 10)
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 40)
 title.BackgroundTransparency = 1
-title.Text = "🌑 Hexagon Lib"
+title.Text = "🌑 Hexagon Ui"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
 title.TextSize = 20
@@ -38,7 +34,6 @@ close.Font = Enum.Font.GothamBold
 close.TextSize = 20
 close.MouseButton1Click:Connect(function()
 	gui:Destroy()
-	blur:Destroy()
 end)
 
 local minimize = Instance.new("ImageButton", gui)
@@ -47,7 +42,7 @@ minimize.Size = UDim2.new(0, 45, 0, 45)
 minimize.Position = UDim2.new(0.3, -100, 0.7, -200)
 Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 10)
 minimize.MouseButton1Click:Connect(function()
-	gui.Visible = not gui.Visible
+	main.Visible = not main.Visible
 end)
 
 local tabNames = {"Home", "Client", "SUS", "FE", "PlayerHack"}
