@@ -1,0 +1,250 @@
+--// Bacons Premium Hub - Estilo Redz Hub com Abas
+--// Coloque em StarterPlayer > StarterPlayerScripts
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local RunService = game:GetService("RunService")
+
+-- Criar GUI principal
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "BaconsPremiumHub"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = LocalPlayer:WaitForChild("PlayerGui")
+
+local Main = Instance.new("Frame")
+Main.Size = UDim2.new(0, 500, 0, 420)
+Main.Position = UDim2.new(0.25, 0, 0.25, 0)
+Main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+Main.Active = true
+Main.Draggable = true
+Main.Parent = ScreenGui
+
+local corner = Instance.new("UICorner", Main)
+corner.CornerRadius = UDim.new(0, 12)
+
+local stroke = Instance.new("UIStroke", Main)
+stroke.Thickness = 2
+stroke.Color = Color3.fromRGB(200, 0, 0)
+
+-- Título
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 45)
+Title.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+Title.Text = "🔥 Bacons Premium Hub 🔥"
+Title.TextColor3 = Color3.new(1,1,1)
+Title.Font = Enum.Font.SourceSansBold
+Title.TextSize = 22
+Title.Parent = Main
+
+local titleCorner = Instance.new("UICorner", Title)
+titleCorner.CornerRadius = UDim.new(0, 12)
+
+-- Container das abas
+local TabBar = Instance.new("Frame")
+TabBar.Size = UDim2.new(1, -20, 0, 35)
+TabBar.Position = UDim2.new(0, 10, 0, 55)
+TabBar.BackgroundTransparency = 1
+TabBar.Parent = Main
+
+local TabLayout = Instance.new("UIListLayout", TabBar)
+TabLayout.FillDirection = Enum.FillDirection.Horizontal
+TabLayout.Padding = UDim.new(0, 10)
+
+-- Criar container de páginas
+local Pages = Instance.new("Folder", Main)
+
+-- Função para criar páginas
+local function createPage(name)
+    local page = Instance.new("ScrollingFrame")
+    page.Name = name
+    page.Size = UDim2.new(1, -20, 1, -100)
+    page.Position = UDim2.new(0, 10, 0, 95)
+    page.CanvasSize = UDim2.new(0, 0, 3, 0)
+    page.ScrollBarThickness = 6
+    page.BackgroundTransparency = 1
+    page.Visible = false
+    page.Parent = Pages
+
+    local UIList = Instance.new("UIListLayout", page)
+    UIList.Padding = UDim.new(0, 8)
+    UIList.FillDirection = Enum.FillDirection.Vertical
+    UIList.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    UIList.SortOrder = Enum.SortOrder.LayoutOrder
+
+    return page
+end
+
+-- Função para botões
+local function createButton(page, text, callback)
+    local btn = Instance.new("TextButton")
+    btn.Size = UDim2.new(0.9, 0, 0, 40)
+    btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    btn.TextColor3 = Color3.new(1,1,1)
+    btn.Font = Enum.Font.SourceSansBold
+    btn.TextSize = 18
+    btn.Text = text
+    btn.Parent = page
+
+    local bCorner = Instance.new("UICorner", btn)
+    bCorner.CornerRadius = UDim.new(0, 8)
+
+    local bStroke = Instance.new("UIStroke", btn)
+    bStroke.Thickness = 1.5
+    bStroke.Color = Color3.fromRGB(200, 0, 0)
+
+    btn.MouseButton1Click:Connect(callback)
+end
+
+-- Função para abas
+local function createTab(name, page)
+    local tab = Instance.new("TextButton")
+    tab.Size = UDim2.new(0, 120, 1, 0)
+    tab.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    tab.TextColor3 = Color3.new(1,1,1)
+    tab.Font = Enum.Font.SourceSansBold
+    tab.TextSize = 18
+    tab.Text = name
+    tab.Parent = TabBar
+
+    local tCorner = Instance.new("UICorner", tab)
+    tCorner.CornerRadius = UDim.new(0, 8)
+
+    tab.MouseButton1Click:Connect(function()
+        for _, p in pairs(Pages:GetChildren()) do
+            p.Visible = false
+        end
+        page.Visible = true
+    end)
+end
+
+-- Criar páginas
+local AdminPage = createPage("Admin")
+local DiversaoPage = createPage("Diversao")
+local VisuaisPage = createPage("Visuais")
+
+-- Criar abas
+createTab("🛠 Admin", AdminPage)
+createTab("⚡ Diversão", DiversaoPage)
+createTab("👀 Visuais", VisuaisPage)
+
+-- Abrir Admin como padrão
+AdminPage.Visible = true
+
+------------------------------------------------------
+--// Comandos de Admin
+------------------------------------------------------
+
+-- Kick
+createButton(AdminPage, "Kickar Todos", function()
+    for _, plr in pairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer then
+            plr:Kick("Kickado pelo dono!")
+        end
+    end
+end)
+
+-- Ban
+local banned = {}
+createButton(AdminPage, "Banir Todos", function()
+    for _, plr in pairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer then
+            table.insert(banned, plr.UserId)
+            plr:Kick("Banido do servidor!")
+        end
+    end
+end)
+
+Players.PlayerAdded:Connect(function(plr)
+    for _, id in pairs(banned) do
+        if plr.UserId == id then
+            plr:Kick("Você está banido permanentemente!")
+        end
+    end
+end)
+
+-- Kill
+createButton(AdminPage, "Matar Todos", function()
+    for _, plr in pairs(Players:GetPlayers()) do
+        if plr.Character and plr.Character:FindFirstChild("Humanoid") then
+            plr.Character.Humanoid.Health = 0
+        end
+    end
+end)
+
+-- Trazer
+createButton(AdminPage, "Trazer Todos", function()
+    for _, plr in pairs(Players:GetPlayers()) do
+        if plr ~= LocalPlayer and plr.Character and LocalPlayer.Character then
+            local hrp = plr.Character:FindFirstChild("HumanoidRootPart")
+            local myhrp = LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+            if hrp and myhrp then
+                hrp.CFrame = myhrp.CFrame + Vector3.new(3,0,3)
+            end
+        end
+    end
+end)
+
+------------------------------------------------------
+--// Comandos de Diversão
+------------------------------------------------------
+
+-- Velocidade
+createButton(DiversaoPage, "Velocidade 100", function()
+    if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+        LocalPlayer.Character.Humanoid.WalkSpeed = 100
+    end
+end)
+
+-- Fly
+local flying = false
+createButton(DiversaoPage, "Ativar/Desativar Fly", function()
+    flying = not flying
+    local char = LocalPlayer.Character
+    if flying and char and char:FindFirstChild("HumanoidRootPart") then
+        local bp = Instance.new("BodyPosition", char.HumanoidRootPart)
+        local bg = Instance.new("BodyGyro", char.HumanoidRootPart)
+        bp.MaxForce = Vector3.new(999999,999999,999999)
+        bg.MaxTorque = Vector3.new(999999,999999,999999)
+        while flying do
+            bp.Position = workspace.CurrentCamera.CFrame.Position + workspace.CurrentCamera.CFrame.LookVector * 5
+            bg.CFrame = workspace.CurrentCamera.CFrame
+            RunService.Heartbeat:Wait()
+        end
+        bp:Destroy()
+        bg:Destroy()
+    end
+end)
+
+-- Tool de construção
+createButton(DiversaoPage, "Dar Tool Construção", function()
+    local tool = Instance.new("HopperBin")
+    tool.BinType = Enum.BinType.GameTool
+    tool.Name = "Construção"
+    tool.Parent = LocalPlayer.Backpack
+end)
+
+------------------------------------------------------
+--// Comandos Visuais
+------------------------------------------------------
+
+-- Invisível
+createButton(VisuaisPage, "Ficar Invisível", function()
+    if LocalPlayer.Character then
+        for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
+            if part:IsA("BasePart") and part.Name ~= "HumanoidRootPart" then
+                part.Transparency = 1
+            end
+        end
+    end
+end)
+
+-- Visível
+createButton(VisuaisPage, "Ficar Visível", function()
+    if LocalPlayer.Character then
+        for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
+            if part:IsA("BasePart") then
+                part.Transparency = 0
+            end
+        end
+    end
+end)
