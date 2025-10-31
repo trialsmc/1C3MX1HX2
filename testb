@@ -1,19 +1,14 @@
--- RochazHub 2.0 - by xrtxt195 (Rochas313)
-
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local TweenService = game:GetService("TweenService")
-
 
 local blur = Instance.new("BlurEffect")
 blur.Size = 12
 blur.Parent = game.Lighting
 
-
 local gui = Instance.new("ScreenGui", game.CoreGui)
-gui.Name = "RochazHub2"
+gui.Name = "hexagonlib"
 gui.ResetOnSpawn = false
-
 
 local main = Instance.new("Frame", gui)
 main.Size = UDim2.new(0, 520, 0, 320)
@@ -25,15 +20,13 @@ main.Active = true
 main.Draggable = true
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 10)
 
-
 local title = Instance.new("TextLabel", main)
 title.Size = UDim2.new(1, 0, 0, 40)
 title.BackgroundTransparency = 1
-title.Text = "🌑 RochazHub 2.0"
+title.Text = "🌑 Hexagon Lib"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
 title.Font = Enum.Font.GothamBold
 title.TextSize = 20
-
 
 local close = Instance.new("TextButton", main)
 close.Size = UDim2.new(0, 40, 0, 40)
@@ -48,11 +41,9 @@ close.MouseButton1Click:Connect(function()
 	blur:Destroy()
 end)
 
-
 local tabNames = {"Home", "Client", "SUS", "FE", "PlayerHack"}
 local tabButtons = {}
 local currentTab = nil
-
 
 local tabBar = Instance.new("ScrollingFrame", main)
 tabBar.Size = UDim2.new(1, -20, 0, 30)
@@ -68,7 +59,6 @@ tabLayout.FillDirection = Enum.FillDirection.Horizontal
 tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 tabLayout.Padding = UDim.new(0, 8)
 
-
 for _, name in ipairs(tabNames) do
 	local btn = Instance.new("TextButton")
 	btn.Size = UDim2.new(0, 100, 1, 0)
@@ -80,7 +70,6 @@ for _, name in ipairs(tabNames) do
 	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
 	btn.Parent = tabBar
 	tabButtons[name] = btn
-
 
 	btn.MouseEnter:Connect(function()
 		if currentTab ~= name then
@@ -94,12 +83,10 @@ for _, name in ipairs(tabNames) do
 	end)
 end
 
-
 local content = Instance.new("Frame", main)
 content.Position = UDim2.new(0, 0, 0, 90)
 content.Size = UDim2.new(1, 0, 1, -90)
 content.BackgroundTransparency = 1
-
 
 local tabContents = {
 	Home = {},
@@ -165,7 +152,6 @@ end
 	},
 }
 
-
 local function switchTab(tab)
 	if currentTab == tab then return end
 	currentTab = tab
@@ -207,7 +193,6 @@ local function switchTab(tab)
 		end
 	end
 
-
 	TweenService:Create(content, TweenInfo.new(0.3, Enum.EasingStyle.Quad), {
 		Position = UDim2.new(0, 0, 0, 90)
 	}):Play()
@@ -215,7 +200,6 @@ local function switchTab(tab)
 		Position = UDim2.new(-1, 0, 0, 90)
 	}):Play()
 	game:GetService("Debris"):AddItem(oldContent, 0.4)
-
 	
 	for tName, tBtn in pairs(tabButtons) do
 		if tName == tab then
@@ -226,12 +210,10 @@ local function switchTab(tab)
 	end
 end
 
-
 for tab, btn in pairs(tabButtons) do
 	btn.MouseButton1Click:Connect(function()
 		switchTab(tab)
 	end)
 end
-
 
 switchTab("Home")
