@@ -41,13 +41,18 @@ close.MouseButton1Click:Connect(function()
 	blur:Destroy()
 end)
 
-local minimize = Instance.new("ImageButton", main)
+local minimize = Instance.new("ImageButton", gui)
 minimize.Size = UDim2.new(0, 45, 0, 45)
 minimize.Position = UDim2.new(0.3, -100, 0.7, -200)
 Instance.new("UICorner", minimize).CornerRadius = UDim.new(0, 10)
 minimize.MouseButton1Click:Connect(function()
+if Minimized then
+	gui.Visible = True
+	blur.Enabled = True
+else
 	gui.Visible = False
 	blur.Enabled = False
+end
 end)
 
 local tabNames = {"Home", "Client", "SUS", "FE", "PlayerHack"}
