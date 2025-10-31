@@ -26,7 +26,7 @@ title.Font = Enum.Font.GothamBold
 title.TextSize = 12
 
 local desc = Instance.new("TextLabel", main)
-desc.Position = UDim2.new(1, -26, 0, 15)
+desc.Position = UDim2.new(0, -26, 0, 15)
 desc.Size = UDim2.new(0, 150, 0, 25)
 desc.BackgroundTransparency = 1
 desc.Text = "by Nova"
@@ -35,13 +35,13 @@ desc.Font = Enum.Font.Gotham
 desc.TextSize = 8
 
 local close = Instance.new("TextButton", main)
-close.Size = UDim2.new(0, 38, 0, 38)
-close.Position = UDim2.new(1, -40, 0, 0)
+close.Size = UDim2.new(0, 25, 0, 25)
+close.Position = UDim2.new(1, -34, 0, 7)
 close.BackgroundTransparency = 1
-close.Text = "x"
-close.TextColor3 = Color3.fromRGB(150, 150, 150)
+close.Text = "×"
+close.TextColor3 = Color3.fromRGB(243, 243, 243)
 close.Font = Enum.Font.Gotham
-close.TextSize = 20
+close.TextSize = 30
 close.MouseButton1Click:Connect(function()
 	gui:Destroy()
 end)
@@ -62,7 +62,7 @@ local currentTab = nil
 local tabBar = Instance.new("ScrollingFrame", main)
 tabBar.Position = UDim2.new(0, 0, 1, 0)
 tabBar.AnchorPoint = Vector2.new(0, 1)
-tabBar.Size = UDim2.new(0, 120, 1, -28)
+tabBar.Size = UDim2.new(0, 120, 1, -50)
 tabBar.BackgroundTransparency = 1
 tabBar.ScrollBarThickness = 1.5
 tabBar.ScrollingDirection = Enum.ScrollingDirection.Y
@@ -101,7 +101,7 @@ end
 
 local content = Instance.new("Frame", main)
 content.Position = UDim2.new(0.3, 0, 0, 50)
-content.Size = UDim2.new(0.7, 0, 0.7, 0)
+content.Size = UDim2.new(0.65, 0, 0.8, 0)
 content.BackgroundTransparency = 1
 
 local tabContents = {
