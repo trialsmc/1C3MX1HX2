@@ -26,7 +26,7 @@ title.Font = Enum.Font.SourceSansBold
 title.TextSize = 12
 
 local desc = Instance.new("TextLabel", main)
-desc.Position = UDim2.new(0, -26, 0, 15)
+desc.Position = UDim2.new(0, -22, 0, 15)
 desc.Size = UDim2.new(0, 150, 0, 25)
 desc.BackgroundTransparency = 1
 desc.Text = "by Nova"
