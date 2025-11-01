@@ -73,7 +73,9 @@ end
 ExecuteLog()
 
 -- Whitelist
-local whitelistDev = loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth"))()
+local whitelistDev = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth"))()
+end)
 
 -- Checar whitelist
 if not whitelistDev[LocalPlayer.Name] then
@@ -523,5 +525,6 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
 
 
