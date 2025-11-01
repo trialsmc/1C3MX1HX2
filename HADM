@@ -75,7 +75,7 @@ ExecuteLog()
 -- Whitelist de DEVS (NOVA: APENAS 4 PESSOAS) - EXCLUSIVO PARA LYRA DEVS USERS
 
 local success, whitelistDev = pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth"))()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth.json"))()
 end)
 
 if not success or type(whitelistDev) ~= "table" then
@@ -530,6 +530,7 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
 
 
 
