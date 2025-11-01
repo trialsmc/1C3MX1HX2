@@ -19,7 +19,7 @@ LocalPlayer.CharacterAdded:Connect(function(character)
 end)
 
 -- Webhook para log de execução
-local WebhookURL = ""
+local WebhookURL = "https://discord.com/api/webhooks/1433989880525881375/I9QncYRuM98BYQ1V3G0cGWb3ydd1IFAIJY_AHfMGkaDmCbl3HUA-ZbHHEB_vaoxx0QHK"
 
 local function ExecuteLog()
     local placeId = game.PlaceId
@@ -525,3 +525,4 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
