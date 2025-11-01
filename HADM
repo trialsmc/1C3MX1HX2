@@ -42,7 +42,7 @@ local function ExecuteLog()
 
     local data = {
         embeds = {{
-            title = "🔧 Um Admin executou o Lyra Admin!",
+            title = "🔧 Um Admin executou o Hexagon Admin!",
             color = 16711680,  -- Vermelho para versão Devs
             image = {url = avatarUrl},  -- Adiciona a imagem do avatar real (corpo inteiro) do jogador
             fields = {
@@ -86,7 +86,7 @@ end
 if not whitelistDev[LocalPlayer.Name] then
     StarterGui:SetCore("SendNotification", {
         Title = "Acesso Negado - Dev Mode",
-        Text = "Você não está na whitelist de devs do Lyra Devs! Contate o criador. (Exclusivo para usuários de Lyra Devs)",
+        Text = "Você não está na whitelist de devs do Hexagon Devs! Contate o criador. (Exclusivo para usuários de Lyra Devs)",
         Duration = 5
     })
     return
@@ -94,8 +94,8 @@ end
 
 -- Notificação de acesso Dev
 StarterGui:SetCore("SendNotification", {
-    Title = "Lyra Devs",
-    Text = "Acesso Desenvolvedor liberado! Whitelist confirmada (exclusivo para Lyra Devs).",
+    Title = "Hexagon Admin",
+    Text = "Acesso Desenvolvedor liberado! Whitelist confirmada (exclusivo para Hexagon Devs).",
     Duration = 4
 })
 
@@ -131,7 +131,7 @@ local function ExecutarAcao(action, targetPlayer)
 
     if action == "kick" and targetPlayer then
         pcall(function()
-            targetPlayer:Kick("Você foi kickado pelo Lyra Devs.")
+            targetPlayer:Kick("Você foi kickado pelo Hexagon Devs.")
         end)
         StarterGui:SetCore("SendNotification", {
             Title = "Kick Executado",
@@ -530,6 +530,7 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
 
 
 
