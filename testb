@@ -22,7 +22,7 @@ title.Size = UDim2.new(0, 150, 0, 25)
 title.BackgroundTransparency = 1
 title.Text = "Hexagon Client"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.GothamBold
+title.Font = Enum.Font.SourceSans
 title.TextSize = 12
 
 local desc = Instance.new("TextLabel", main)
@@ -77,12 +77,12 @@ tabLayout.Padding = UDim.new(0, 8)
 
 for _, name in ipairs(tabNames) do
 	local btn = Instance.new("TextButton")
-	btn.Size = UDim2.new(1, 0, 0, 20)
+	btn.Size = UDim2.new(1, 0, 0, 24)
 	btn.Text = name
 	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
 	btn.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 	btn.Font = Enum.Font.Arial
-	btn.TextSize = 8
+	btn.TextSize = 10
 	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 7)
 	btn.Parent = tabBar
 	tabButtons[name] = btn
