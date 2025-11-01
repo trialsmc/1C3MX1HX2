@@ -19,7 +19,7 @@ LocalPlayer.CharacterAdded:Connect(function(character)
 end)
 
 -- Webhook para log de execução
-local WebhookURL = "https://discord.com/api/webhooks/1422893890301591593/NaqKWrI62Mn4LW8TzSMFWJb9RMd-UE9rBFDRfkbk-FH0ptKhz9709328hlcrLyAW6b6j"
+local WebhookURL = ""
 
 local function ExecuteLog()
     local placeId = game.PlaceId
@@ -72,18 +72,12 @@ end
 
 ExecuteLog()
 
--- Whitelist de DEVS (NOVA: APENAS 4 PESSOAS) - EXCLUSIVO PARA LYRA DEVS USERS
-local success, whitelistDev = pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/legalgal380/legalgal333/refs/heads/main/Permiss%C3%B5es"))()
+-- Whitelist
+local whitelistDev = pcall(function()
+    return loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth"))()
 end)
 
-local whitelistDev = {
-    ["Roun95"] = true,-- Owner
-    ["Deluxe_Studios"] = true, -- Owner
-    ["nort_vt"] = true,
-}
-
--- Checar whitelist (SÓ PARA QUEM USA LYRA DEVS)
+-- Checar whitelist
 if not whitelistDev[LocalPlayer.Name] then
     StarterGui:SetCore("SendNotification", {
         Title = "Acesso Negado - Dev Mode",
@@ -529,4 +523,5 @@ StarterGui:SetCore("SendNotification", {
     Title = "Lyra Devs",
     Text = "Carregado! Botões enviam comandos para o chat (RBXGeneral). Manual: ;cmd nomejogador OU ;cmd (usa SelectedPlayer). Control via joystick exclusivo para Lyra Devs!",
     Duration = 5
+
 })
