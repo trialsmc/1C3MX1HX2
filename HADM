@@ -74,9 +74,19 @@ ExecuteLog()
 
 -- Whitelist de DEVS (NOVA: APENAS 4 PESSOAS) - EXCLUSIVO PARA LYRA DEVS USERS
 
+local lista = {}
 local success, whitelistDev = pcall(function()
     return HttpService:GetAsync("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth")
 end)
+
+if success and whitelistDev then
+    for _, idString in whitelistDev:split(",") do
+        local userId = tonumber(idString)
+        if userId then
+            table.insert(lista, userId)
+        end
+    end
+end
 
 -- Checar whitelist (SÓ PARA QUEM USA LYRA DEVS)
 if not whitelistDev[LocalPlayer.Name] then
@@ -526,6 +536,7 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
 
 
 
