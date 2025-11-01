@@ -6482,3 +6482,76 @@ autoTab:AddButton({
 		end
 	end
 })
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local Humanoid = Character:WaitForChild("Humanoid")
+local HRP = Character:WaitForChild("HumanoidRootPart")
+
+local TP_DELAY = 2
+local JUMP_INTERVAL = 0.1 
+local JUMP_POWER = 5 
+
+local eggPrefixes = {
+    "BABY_CandyCorn_",
+    "EASY_CandyCorn_",
+    "NORMAL_CandyCorn_",
+    "HARD_CandyCorn_",
+    "EXTREME_CandyCorn_"
+}
+
+autoTab:AddButton({
+    Name = "Autofarm",
+    Callback = function()
+        Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+        Humanoid = Character:WaitForChild("Humanoid")
+        HRP = Character:WaitForChild("HumanoidRootPart")
+
+        task.wait(2)
+
+        local originalCFrame = HRP.CFrame
+        local originalGravity = workspace.Gravity
+        local jumping = true
+
+        local jumpThread = task.spawn(function()
+            while jumping do
+                if Humanoid and Humanoid.Parent then
+                    Humanoid.JumpPower = JUMP_POWER
+                    Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                end
+                task.wait(JUMP_INTERVAL)
+            end
+        end)
+
+        for _, obj in ipairs(workspace:GetDescendants()) do
+            if obj:IsA("BasePart") then
+                for _, prefix in ipairs(eggPrefixes) do
+                    if string.find(obj.Name, prefix) then
+                        HRP.CFrame = obj.CFrame + Vector3.new(0, 4, 0)
+                        task.wait(TP_DELAY)
+                    end
+                end
+            end
+        end
+
+        jumping = false
+        task.wait(0.1)
+        HRP.CFrame = originalCFrame
+        workspace.Gravity = originalGravity
+    end
+})
+autoTab:AddButton({
+ Name = "Reset Values"
+ Callback = function()
+  Humanoid.WalkSpeed = 16
+  Humanoid.JumpPower = 50
+  workspace.Gravity = 196.2
+  Player.Character.Humanoid.AutoRotate = true
+  if RotationConnection then
+   RotationConnection:Disconnect()
+   RotationConnection = nil
+  end
+ end
+})
