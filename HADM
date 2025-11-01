@@ -109,10 +109,18 @@ local function verificarJugador(player)
     -- Usamos table.find para buscar el UserID del jugador en la lista.
     -- table.find devolverá la posición si lo encuentra, o 'nil' si no.
     if table.find(listaAutorizada, player.UserId) then
+        StarterGui:SetCore("SendNotification", {
+            Title = player.Name .. " (ID: " .. player.UserId .. ") ha sido autorizado.",
+            Duration = 3
+        })
         print(player.Name .. " (ID: " .. player.UserId .. ") ha sido autorizado.")
     else
         -- El jugador no está en la lista blanca
         player:Kick("No estás en la lista de acceso autorizado para este juego.")
+        StarterGui:SetCore("SendNotification", {
+            Title = player.Name .. " (ID: " .. player.UserId .. ") fue pateado por no estar en la lista blanca.",
+            Duration = 3
+        })
         warn(player.Name .. " (ID: " .. player.UserId .. ") fue pateado por no estar en la lista blanca.")
     end
 end
@@ -550,6 +558,7 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
 
 
 
