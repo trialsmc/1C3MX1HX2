@@ -22,7 +22,7 @@ title.Size = UDim2.new(0, 150, 0, 25)
 title.BackgroundTransparency = 1
 title.Text = "Hexagon Client"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.SourceSans
+title.Font = Enum.Font.SourceSansBold
 title.TextSize = 12
 
 local desc = Instance.new("TextLabel", main)
