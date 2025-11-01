@@ -1,4 +1,4 @@
-local whitelistAdm = {
+local whitelistDev = {
     ["Roun95"] = true,
     ["Deluxe_Studios"] = true,
     ["SUKUNA_333857"] = true
