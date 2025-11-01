@@ -9,7 +9,7 @@ gui.ResetOnSpawn = false
 local main = Instance.new("Frame", gui)
 main.Size = UDim2.new(0, 420, 0, 340)
 main.Position = UDim2.new(0.5, -220, 0.5, -150)
-main.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+main.BackgroundColor3 = Color3.fromRGB(20, 20, 15)
 main.BackgroundTransparency = 0.1
 main.BorderSizePixel = 0
 main.Active = true
@@ -17,22 +17,22 @@ main.Draggable = true
 Instance.new("UICorner", main).CornerRadius = UDim.new(0, 12)
 
 local title = Instance.new("TextLabel", main)
-title.Position = UDim2.new(0, 0, 0, 5)
+title.Position = UDim2.new(0, 0, 0, 2)
 title.Size = UDim2.new(0, 150, 0, 25)
 title.BackgroundTransparency = 1
 title.Text = "Hexagon Client"
 title.TextColor3 = Color3.fromRGB(255, 255, 255)
-title.Font = Enum.Font.ArialBold
-title.TextSize = 12
+title.Font = Enum.Font.Arial
+title.TextSize = 14
 
 local desc = Instance.new("TextLabel", main)
-desc.Position = UDim2.new(0, -22, 0, 15)
+desc.Position = UDim2.new(0, -21, 0, 13)
 desc.Size = UDim2.new(0, 150, 0, 25)
 desc.BackgroundTransparency = 1
 desc.Text = "by Nova"
 desc.TextColor3 = Color3.fromRGB(200, 200, 200)
 desc.Font = Enum.Font.Arial
-desc.TextSize = 8
+desc.TextSize = 10
 
 local close = Instance.new("TextButton", main)
 close.Size = UDim2.new(0, 25, 0, 25)
