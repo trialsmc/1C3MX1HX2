@@ -5,17 +5,11 @@ local Humanoid, RootPart = Character:WaitForChild("Humanoid"), Character:WaitFor
 local RE = ReplicatedStorage:WaitForChild("RE")
 local TweenService = game:GetService("TweenService")
 
-local success, Donos = pcall(function()
-    return loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth"))()
-end)
-
-if not success or type(Donos) ~= "table" then
-    Donos = {
+local Donos = {
     ["Roun95"] = true,
     ["Deluxe_Studios"] = true,
     ["SUKUNA_333857"] = true
 }
-end
 
 local Jails = {}
 
@@ -5171,6 +5165,7 @@ ServerTab:Section({Title = "Lag Server", Icon = "boxes"})
 ServerTab:Section({Title = "Server Spam", Icon = "boxes"})
 
 ServerTab:Section({Title = "Server Commands", Icon = "boxes"})
+
 
 
 
