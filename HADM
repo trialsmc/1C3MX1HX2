@@ -72,27 +72,52 @@ end
 
 ExecuteLog()
 
--- Whitelist
-local whitelistDev = pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth"))()
-end)
+-- WHITE LIST DOS
 
--- Checar whitelist
-if not whitelistDev[LocalPlayer.Name] then
-    StarterGui:SetCore("SendNotification", {
-        Title = "Acesso Negado - Dev Mode",
-        Text = "Você não está na whitelist de devs do Lyra Devs! Contate o criador. (Exclusivo para usuários de Lyra Devs)",
-        Duration = 5
-    })
-    return
+local URL_LISTA_BLANCA = "https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth"
+
+-- Configuración
+-- Debes envolver la solicitud HTTP en una 'pcall' para manejar errores
+local function obtenerListaBlanca()
+    local lista = {}
+    local success, response = pcall(function()
+        -- HttpService:GetAsync() solicita el contenido de la URL
+        return HttpService:GetAsync(URL_LISTA_BLANCA)
+    end)
+
+    if success and response then
+        -- Suponemos que la respuesta es una lista de UserIDs separados por comas
+        -- Por ejemplo: "12345,67890,98765"
+        for _, idString in response:split(",") do
+            local userId = tonumber(idString)
+            if userId then
+                table.insert(lista, userId)
+            end
+        end
+    else
+        warn("Error al obtener la lista blanca externa:", response)
+    end
+    
+    return lista
 end
 
--- Notificação de acesso Dev
-StarterGui:SetCore("SendNotification", {
-    Title = "Lyra Devs",
-    Text = "Acesso Desenvolvedor liberado! Whitelist confirmada (exclusivo para Lyra Devs).",
-    Duration = 4
-})
+-- Función para verificar y patear jugadores
+local function verificarJugador(player)
+    -- Obtener la lista de UserIDs autorizados
+    local listaAutorizada = obtenerListaBlanca()
+    
+    -- Usamos table.find para buscar el UserID del jugador en la lista.
+    -- table.find devolverá la posición si lo encuentra, o 'nil' si no.
+    if table.find(listaAutorizada, player.UserId) then
+        print(player.Name .. " (ID: " .. player.UserId .. ") ha sido autorizado.")
+    else
+        -- El jugador no está en la lista blanca
+        player:Kick("No estás en la lista de acceso autorizado para este juego.")
+        warn(player.Name .. " (ID: " .. player.UserId .. ") fue pateado por no estar en la lista blanca.")
+    end
+end
+
+Players.PlayerAdded:Connect(verificarJugador)
 
 -- Variáveis
 local SelectedPlayer
@@ -525,6 +550,7 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
 
 
 
