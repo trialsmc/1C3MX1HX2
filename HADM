@@ -78,10 +78,6 @@ local success, whitelistDev = pcall(function()
     return HttpService:GetAsync("https://raw.githubusercontent.com/trialsmc/1C3MX1HX2/refs/heads/main/auth")
 end)
 
-if not success or type(whitelistDev) ~= "table" then
-    whitelistDev = {}
-end
-
 -- Checar whitelist (SÓ PARA QUEM USA LYRA DEVS)
 if not whitelistDev[LocalPlayer.Name] then
     StarterGui:SetCore("SendNotification", {
@@ -530,6 +526,7 @@ StarterGui:SetCore("SendNotification", {
     Duration = 5
 
 })
+
 
 
 
